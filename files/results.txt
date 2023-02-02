@@ -1,0 +1,29 @@
+Try to find the solution for the plan! 
+
+(ask_go t1 t2 t3 t4 t6 t13 anne sally room elsewhere)
+(ask_put_alone t1 t3 t2 t8 t10 t9 t17 t18 t19 t12 sally anne room elsewhere emptyspace box1 ball)
+(blamefor_alone t20 t8 t22 t21 t1 t3 t2 sally anne room elsewhere)
+(test t20 t8 t21)
+; cost = 4 (unit cost)
+
+
+
+Try to find the solution for the plan! 
+
+(ask_go t1 t2 t3 t4 t6 t13 anne sally room elsewhere)
+(ask_put_alone t1 t3 t2 t8 t10 t9 t20 t21 t22 t12 sally anne room elsewhere emptyspace ball ball)
+(ask_insult_alone t17 t18 t19 t1 t3 t2 sally anne room elsewhere)
+(test t17 end t19 anne sally)
+; cost = 4 (unit cost)
+
+
+
+Try to find the solution for the plan! 
+
+(tell_infrontof t16 t1 t3 t2 end t15 t23 sally anne room)
+(complimentfor_infrontof t20 t16 t22 t21 t1 t3 t2 sally anne room)
+(test t15 t16 t20)
+; cost = 3 (unit cost)
+
+
+
