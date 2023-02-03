@@ -1,5 +1,4 @@
 (define (problem thesis_problem1) (:domain thesis_domain1)
-;(:domain thesis_domain2)
 (:objects
     robot - agent
     anne - agent
@@ -40,6 +39,8 @@
 (:init
     (hasStartAgent robot)
     (isEnd end)
+    
+    ; All the start ids
     (isStart t1)
     (isStart t2)
     (isStart t3)
@@ -57,12 +58,16 @@
     (isStart t15)
     (isStart t16)
     (isStart t23)
+
+    ; All the free ids
     (free t17)
     (free t18)
     (free t19)
     (free t20)
     (free t21)
     (free t22) 
+
+    ; This disjunction is useful to avoid reusing the free ids in some actions
     (disjuncted_id t17 t18)
     (disjuncted_id t17 t19)
     (disjuncted_id t17 t20)
@@ -78,12 +83,16 @@
     (disjuncted_id t20 t21)
     (disjuncted_id t20 t22)
     (disjuncted_id t21 t22)
+
+    ; This disjunction is useful to avoid reusing the same agent in some actions
     (disjuncted_a sally anne)
     (disjuncted_a sally robot)  
     (disjuncted_a anne sally)
     (disjuncted_a anne robot)
     (disjuncted_a robot sally)
     (disjuncted_a robot anne)
+
+    ; This disjunction is useful to avoid reusing the same "thing" in some actions
     (disjuncted ball box1)
     (disjuncted box1 ball)
     (disjuncted ball box2)
@@ -102,6 +111,8 @@
     (disjuncted emptySpace room)
     (disjuncted box2 room)
     (disjuncted room box2) 
+
+    ; This disjunction is useful to avoid reusing the same place in some actions
     (disjuncted_r room elsewhere)
     (disjuncted_r elsewhere room)
  
@@ -109,24 +120,43 @@
     (isAt t1 robot room)
     (isAt t2 anne room)
     (isAt t3 sally room)
+
     (Know t4 anne t2)
     (Know t5 anne t3)
     (Know t6 sally t2)
     (Know t7 sally t3)
+
     (isIn t8 ball emptySpace)
     (Know t9 anne t8)
     (Know t10 sally t8)
+
+    ; Willingness of the agents about changin room or putting the ball into the box
+
     (Willing t11 anne t8)
     (Willing t12 sally t8)
     (Willing t13 anne t2)
     (NotSureIfWilling t14 sally t3)
+
+    ; Ignorance of the agents about a generic fact
+
     (Ignore t15 sally t16)
-    (Know t23 anne t16)
+    (Ignore t23 anne t16)
 )
+
+
+; To test the various goal, uncomment the (ok1,2,3,4,5,6) to activate the test actions:
+; ok1 -> activates test1
+; ok2 -> activates test2 
+; ....
 
 (:goal  
     (and 
-        (ok)
+        (ok1)
+        ;(ok2)
+        ;(ok3)
+        ;(ok4)
+        ;(ok5)
+        ;(ok6)
     )
 )
 

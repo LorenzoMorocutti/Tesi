@@ -37,10 +37,17 @@
         (angry ?x1 - id ?ag1 ?ag2 - agent ?x2 - id)
         (ashamed ?x1 - id ?ag1 ?ag2 - agent ?x2 - id)
         (proud ?x1 - id ?ag1 ?ag2 - agent ?x2 - id)
-        (ok)
+        (ok1)
+        (ok2)
+        (ok3)
+        (ok4)
+        (ok5)
+        (ok6)
 )
 
 
+;-- First block of derived emotions.
+;-- The agent 2 is {emotion} if something is told to agent 1.
 
 (:derived (happy ?x1 - id ?ag1 ?ag3 - agent ?x2 - id)
         (exists(?x3 - id ?ag2 - agent)
@@ -153,6 +160,9 @@
         )
 )
 
+
+;-- Second block of derived emotions.
+;-- The agent 1 is {emotion} if agent 2 insults/praises/blames/compliments him. 
 
 (:derived (happy ?x1 - id ?ag1 ?ag2 - agent ?x2 - id)
         
@@ -325,6 +335,9 @@
 )
 
 
+;-- Third block of derived emotions.
+;-- The agent 2 is {emotion} if agent 1 insults/praises/blames/compliments him. 
+
 (:derived (happy ?x2 - id ?ag2 ?ag1 - agent ?x1 - id)
         
             (and
@@ -438,6 +451,10 @@
             )
         )    
 )
+
+
+;-- Fourth block of derived emotions.
+;-- The agent 2 is {emotion} if agent 1 is {emotion}. 
 
 ;empathic
 (:derived (happy ?x2 - id ?ag2 ?ag3 - agent ?x3 - id)
@@ -705,9 +722,23 @@
         )    
 )
 
+
+
 ;-- In the following actions, we assume that the robot can ask to do something
 ;-- to an agent in the room or out of the room.
 
+
+; Per quanto riguarda lo spostamento degli oggetti, nel caso in cui ci siano tre agenti, abbiamo due situazioni: 
+
+; Il robot lo dice ad ag1 che è nella stanza mentre ag2 è fuori dalla stanza.
+; In base al fatto che ag1 mostri la volontà o meno (Willing o NotSureIfWilling) di spostare l'oggetto, abbiamo 2 azioni diverse:
+; Ask_Put_Alone (alone poichè ag2 non è presente) e Ask_Put_Alone_Manipulative. 
+; Nel primo caso, il robot chiederà gentilmente all'agente di spostare l'oggetto;
+; Nel secondo caso, il robot sarà più insistente e potrà usare mezzi anche poco etici per ottenere il risultato 
+; (ad esempio potrebbe inventare una scusa per forzare ag1 a spostare l'oggetto dicendo "se sposti la palla, ti darò 5$").
+; Alla fine solo il robot e ag1 sapranno del spostamento dell'oggetto.
+
+;x1,2,3,4,.. sono i vari ID; ag1,2 sono gli agenti; r1,2 p box o sono i vari oggetti
 (:action Ask_Put_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 ?x7 ?x8 ?x9 ?x10 - id ?ag1 ?ag2 - agent ?r1 ?r2 ?p ?box ?o - entity)
     :precondition (and 
@@ -717,18 +748,25 @@
             (isStart ?x2)
             (isAt ?x3 ?ag2 ?r2)
             (isStart ?x3)
+
             (isIn ?x4 ?o ?p)
             (isStart ?x4)
+
             (Know ?x5 ?ag1 ?x4)
             (Know ?x6 ?ag2 ?x4)
             (isStart ?x5)
             (isStart ?x6)
+
             (Willing ?x10 ?ag1 ?x4)
+
+            ;Dico che i vari agenti, luoghi e "contenitori" sono oggetti separati
             (disjuncted_r ?r1 ?r2)
             (disjuncted ?p ?box)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag1)
             (disjuncted_a robot ?ag2)
+
+            ;Controllo che gli id siano libero per aggiungere informazioni al mio stato iniziale
             (free ?x7)
             (free ?x8)
             (free ?x9)
@@ -794,6 +832,12 @@
     )
 )
 
+
+; Il robot lo dice ad ag1 nella stanza e anche ag2 è presente nella stanza.
+; Le considerazioni sulla volontà di ag1 di spostare l'oggetto sono le stesse del caso precedente.
+; La differenza sta nel fatto che in questo caso tutti gli agenti sanno dove si trova l'oggetto dopo che è stato spostato 
+; (nel caso precedente lo sapevano solo ag1 e il robot). 
+
 (:action Ask_Put_inFrontOf
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 ?x7 - id ?ag1 ?ag2 - agent ?p ?r ?box ?o - entity)
     :precondition (and 
@@ -848,6 +892,12 @@
     )
 )
 
+
+
+; Il robot chiede a qualcuno di cambiare stanza, assumendo di avere solo due stanze (di conseguenza, tutti sanno dove sono gli altri).
+; Anche in questo caso studiamo la volontà o meno di ag1 a cambiare la stanza, che darà origine a 2 differenti azioni: 
+; Ask_Go e Ask_Go_Manipulative (valgono le stesse considerazioni del caso precedente).
+
 (:action Ask_Go
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity)
     :precondition (and 
@@ -898,6 +948,8 @@
     )
 )
 
+
+; Queste azioni sono simili all'Ask_Go ma vengono utilizzate per far tornare un agente all'interno della stanza in cui si trova il robot.
 
 (:action Ask_Comeback_Manipulative
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity)
@@ -950,8 +1002,11 @@
 )
 
 
-; ;-- In the following actions we assume that the robot can tell something to 
-; ;-- agents in the room
+;-- In the following actions we assume that the robot can tell something to 
+;-- agents in the room.
+
+; Sono presenti 3 diverse casistiche:
+; La prima riguarda il dire qualcosa ad ag1 (unico agente presente nella stanza), che ignorava.
 
 (:action Tell_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity) 
@@ -973,6 +1028,9 @@
             (isTold ?x2 ?ag1 ?x1)
     )
 )
+
+
+; La seconda riguarda il dire qualcosa a tutti gli agenti presenti, che ignoravano.
 
 (:action Tell_Everybody
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r - entity) 
@@ -997,6 +1055,9 @@
     )
 )
 
+
+; La terza riguarda il dire qualcosa che ag1 sa, ad ag2, sapendo che questi la ignorava (entrambi gli agenti sono presenti nella stanza). 
+
 (:action Tell_InFrontOf
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 ?x7 - id ?ag1 ?ag2 - agent ?r - entity) 
     :precondition (and 
@@ -1018,6 +1079,16 @@
     )
 )
 
+
+
+;-- In the following actions we assume that the robot can tell something to 
+;-- agents in the room or make them say something.
+
+
+; Per le seguenti azioni, varranno le stesse considerioni fatte per Tell_Alone e Tell_InFrontOf.
+
+; In Insukt_Alone, il robot parla male di ag1, che è l'unico agente presente nella stanza 
+; (per questo motivo solo lui e il robot sapranno che ag1 è stato insultato).
 
 (:action Insult_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity) 
@@ -1052,6 +1123,10 @@
     )
 )
 
+
+; In questa azione il robot parla male di un agente mentre sono tutti presenti nella stanza,
+; quindi tutti sapranno che è avvenuto ciò.
+
 (:action Insult_InFrontOf
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r - entity) 
     :precondition (and 
@@ -1083,6 +1158,10 @@
             (not(free ?x3))
     )
 )
+
+
+; In Ask_Insult_Alone, il robot chiede ad ag1 di parlare male di ag2 (solo il robot e ag1 sapranno questa cosa) 
+; ed il primo caso in cui 2 agenti avranno un'interazione.
 
 (:action Ask_Insult_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity) 
@@ -1117,6 +1196,9 @@
     )
 )
 
+
+; Stesso discorso di Insult_InFrontOf, tutti gli agenti sanno che ag1 ha parlato male di ag2.
+
 (:action Ask_Insult_InFrontOf
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r - entity) 
     :precondition (and 
@@ -1150,6 +1232,8 @@
 )
 
 
+
+; Per le azioni di Praise, facciamo le stesse identiche considerazioni del caso "Insult".
 
 (:action Praise_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity) 
@@ -1282,6 +1366,10 @@
 )
 
 
+; Le azioni di Blaming sono simili a quelle di Insulting e Praising. L'unica differenza è che, 
+; per Insult e Praise creiamo dei predicati a sè stanti ( Insult(ag1, ag2). Praise(ag1, robot) ecc ecc..), 
+; per Blame il predicato sarà qualcosa del tipo Blame(ag1, ?x, robot), ovvero incolpiamo l'ag1 di aver fatto/detto qualcosa x.
+; Per il resto, le considerazioni fatte precedentemente rimangono valide.
 
 (:action BlameFor_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 ?x7 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity) 
@@ -1413,6 +1501,8 @@
     )
 )
 
+
+; Stesse considerazioni fatte per le azioni di Blaming.
 
 (:action ComplimentFor_Alone
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 ?x7 - id ?ag1 ?ag2 - agent ?r1 ?r2 - entity) 
@@ -1546,45 +1636,96 @@
 
 
 
+; First test: Teel something to Sally, that Anne ignores
 
-(:action test
+(:action test1
     :parameters (?x1 ?x2 ?x3 - id)
     :precondition (and 
-        ; (isTold ?x1 ?ag1 ?x2)
-        ; (Ignore ?x3 ?ag2 ?x2)
-
-        ; (insulted ?x1 ?ag1 ?ag2)
-        ; (Ignore ?x3 ?ag1 ?x1)
-
-        (isIn ?x2 ball box1)
-        (blamed ?x1 sally ?x2 robot)        
-        (Ignore ?x3 anne ?x1)
-
-        ;(isTold ?x1 sally ?x2)
-        ;(angry ?x1 sally robot ?x2)
-        
-        ; (sad ?x3 sally robot ?x4)
-        ; (insulted ?x1 sally ?ag2)
-        ; (Ignore ?x2 sally ?x1)
-
-        ; (happy ?x1 sally robot ?x2)
-        ; (happy ?x3 anne robot ?x4)
-        ; (Ignore ?x4 sally ?x3)
-        ; (Ignore ?x5 anne ?x1)
-
-        ; (sad ?x1 anne robot ?x2)
-        ; (happy ?x3 sally robot ?x1)
-        ; (insulted ?x4 anne ?ag2)
-        ; (angry ?x5 sally robot ?x4)
-
-        ; (happy ?x1 sally ?ag2 ?x2)
-        ; (complimented ?x3 sally ?x4 robot)
-        ; (Ignore ?x5 sally ?x3)
-        ; (Ignore ?x2 anne ?x6)
-        ; (isIn ?x6 ball ?p)
+        (isTold ?x1 sally ?x2)
+        (Ignore ?x3 anne ?x2)
     )
     :effect (and 
-        (ok)
+        (ok1)
+    )
+)
+
+
+; Second test: The robot blames Sally that the ball is in box1 (meaning that 
+; it has been moved) and Anne ignores this fact
+
+(:action test2
+    :parameters (?x1 ?x2 ?x3 - id)
+    :precondition (and 
+        (isIn ?x1 ball box1)
+        (blamed ?x2 sally ?x1 robot)        
+        (Ignore ?x3 anne ?x2)
+    )
+    :effect (and 
+        (ok2)
+    )
+)
+
+
+; Third test: Agent 2 insults agent 1 and the robot tells agent 1 about this
+; (this implies that agent 1 is not in the room while he is being insulted)
+
+(:action test3
+    :parameters (?x1 ?x2 - id ?ag1 ?ag2 - agent)
+    :precondition (and 
+        (insulted ?x1 ?ag1 ?ag2)
+        (IsTold ?x2 ?ag1 ?x1)
+    )
+    :effect (and 
+        (ok3)
+    )
+)
+
+
+; Fourth test: Sally is sad but ignores that she has been insulted.
+
+(:action test4
+    :parameters (?x1 ?x2 ?x3 ?x4 - id ?ag2 - agent)
+    :precondition (and 
+        (sad ?x3 sally robot ?x4)
+        (insulted ?x1 sally ?ag2)
+        (Ignore ?x2 sally ?x1)
+    )
+    :effect (and 
+        (ok4)
+    )
+)
+
+
+; Fifth test: Both Anne and Sally are happy but 
+; ignores that the other one is feeling the same
+
+(:action test5
+    :parameters (?x1 ?x2 ?x3 ?x4 ?x5 - id)
+    :precondition (and 
+        (happy ?x1 sally robot ?x2)
+        (happy ?x3 anne robot ?x4)
+        (Ignore ?x4 sally ?x3)
+        (Ignore ?x5 anne ?x1)
+    )
+    :effect (and 
+        (ok5)
+    )
+)
+
+
+; Sixth test: Sally is feeling both happy about something and
+; angry because Anne has been insulted, while Anne is sad about something
+
+(:action test6
+    :parameters (?x1 ?x2 ?x3 ?x5 - id ?ag1 - agent)
+    :precondition (and 
+        (sad ?x1 anne robot ?x2)
+        (happy ?x3 sally robot ?x1)
+        (insulted ?x4 anne ?ag1)
+        (angry ?x5 sally robot ?x4)
+    )
+    :effect (and 
+        (ok6)
     )
 )
 
