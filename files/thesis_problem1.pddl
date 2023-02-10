@@ -1,4 +1,4 @@
-(define (problem thesis_problem1) (:domain thesis_domain1)
+(define (problem thesis_problem1) (:domain thesis_domain)
 (:objects
     robot - agent
     anne - agent
@@ -139,8 +139,8 @@
 
     ; Ignorance of the agents about a generic fact
 
-    (Ignore t15 sally t16)
-    (Ignore t23 anne t16)
+    ; (Ignore t15 sally t16)
+    ; (Ignore t23 anne t16)
 )
 
 
@@ -151,10 +151,10 @@
 
 (:goal  
     (and 
-        (ok1)
+        ;(ok1)
         ;(ok2)
         ;(ok3)
-        ;(ok4)
+        (ok4)
         ;(ok5)
         ;(ok6)
     )
