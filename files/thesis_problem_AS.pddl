@@ -37,7 +37,7 @@
 )
 
 (:init
-    (isSadic robot)
+    (isSadic sally)
 
 
     (isEnd end)
@@ -138,11 +138,6 @@
     (Willing t12 sally t8)
     (Willing t13 anne t2)
     (NotSureIfWilling t14 sally t3)
-
-    ; Ignorance of the agents about a generic fact
-
-    ; (Ignore t15 sally t16)
-    ; (Ignore t23 anne t16)
 )
 
 
@@ -153,12 +148,13 @@
 
 (:goal  
     (and 
-        (ok1)
+        ;(ok1)
         ;(ok2)
         ;(ok3)
         ;(ok4)
         ;(ok5)
         ;(ok6)
+        (ok7)
     )
 )
 

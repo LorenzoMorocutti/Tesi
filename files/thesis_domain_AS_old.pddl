@@ -46,7 +46,6 @@
         (ok4)
         (ok5)
         (ok6)
-        (ok7)
 )
 
 ;-- There will be 21 different blocks of emotions that an agent can feel or cause. 
@@ -1564,11 +1563,11 @@
             (not (isIn ?x4 ?o ?p))
             (isIn ?x4 ?o ?box)
             (not (Know ?x6 ?ag2 ?x4))
-            ;(Ignore ?x6 ?ag2 ?x4)
+            (Ignore ?x6 ?ag2 ?x4)
             (isIn ?x7 ?o ?p)
             (Know ?x8 ?ag2 ?x7)
             (isStart ?x8)
-            ;(Ignore ?x9 ?ag1 ?x7)
+            (Ignore ?x9 ?ag1 ?x7)
             (isStart ?x9)
             (not (free ?x7))
             (not (free ?x8))
@@ -1617,11 +1616,11 @@
             (not (isIn ?x4 ?o ?p))
             (isIn ?x4 ?o ?box)
             (not (Know ?x6 ?ag2 ?x4))
-            ;(Ignore ?x6 ?ag2 ?x4)
+            (Ignore ?x6 ?ag2 ?x4)
             (isIn ?x7 ?o ?p)
             (Know ?x8 ?ag2 ?x7)
             (isStart ?x8)
-            ;(Ignore ?x9 ?ag1 ?x7)
+            (Ignore ?x9 ?ag1 ?x7)
             (isStart ?x9)
             (not (free ?x7))
             (not (free ?x8))
@@ -1837,12 +1836,7 @@
             (isStart ?x4)
             (isAt ?x5 ?ag2 ?r2)
             (isStart ?x5)
-            ;(Ignore ?x2 ?ag1 ?x1)
-            (forall(?x2 - id)
-                (and 
-                    (not (Know ?x2 ?ag1 ?x1))
-                )
-            )
+            (Ignore ?x2 ?ag1 ?x1)
 
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
@@ -1850,7 +1844,7 @@
             (disjuncted_r ?r1 ?r2)
     )
     :effect (and 
-            ;(not(Ignore ?x2 ?ag1 ?x1))
+            (not(Ignore ?x2 ?ag1 ?x1))
             (isTold ?x2 ?ag1 ?x1)
     )
 )
@@ -1868,21 +1862,15 @@
             (isStart ?x3)
             (isAt ?x4 ?ag2 ?r)
             (isStart ?x4)
-            ;(Ignore ?x5 ?ag1 ?x1)
-            ;(Ignore ?x6 ?ag2 ?x1)
-            (forall(?x5 ?x6 - id)
-                (and 
-                    (not (Know ?x5 ?ag1 ?x1))
-                    (not (Know ?x6 ?ag2 ?x1))
-                )
-            )
+            (Ignore ?x5 ?ag1 ?x1)
+            (Ignore ?x6 ?ag2 ?x1)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
             (disjuncted_a robot ?ag1)
     )
     :effect (and 
-            ;(not(Ignore ?x5 ?ag1 ?x1))
-            ;(not(Ignore ?x6 ?ag2 ?x1))
+            (not(Ignore ?x5 ?ag1 ?x1))
+            (not(Ignore ?x6 ?ag2 ?x1))
             (isTold ?x5 ?ag1 ?x1)
             (isTold ?x6 ?ag2 ?x1)
     )
@@ -1902,19 +1890,14 @@
             (isStart ?x3)
             (isAt ?x4 ?ag2 ?r)
             (isStart ?x4)
-            ;(Ignore ?x6 ?ag1 ?x1)
-            (forall(?x6 - id)
-                (and 
-                    (not (Know ?x6 ?ag1 ?x1))
-                )
-            )            
+            (Ignore ?x6 ?ag1 ?x1)
             (Know ?x7 ?ag2 ?x1)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
             (disjuncted_a robot ?ag1)
     )
     :effect (and 
-            ;(not(Ignore ?x6 ?ag1 ?x1))
+            (not(Ignore ?x6 ?ag1 ?x1))
             (isTold ?x6 ?ag1 ?x1)
     )
 )
@@ -1953,7 +1936,7 @@
     :effect (and 
             (insulted ?x1 ?ag1 robot)
             (Know ?x2 ?ag1 ?x1)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x1)
             (isStart ?x2)
             (isStart ?x3)
@@ -2027,7 +2010,7 @@
             (isStart ?x1)
             (Know ?x2 ?ag1 ?x1)
             (isStart ?x2)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x3)
             (not(free ?x1))
             (not(free ?x2))
@@ -2099,7 +2082,7 @@
             (isStart ?x1)
             (Know ?x2 ?ag1 ?x1)
             (isStart ?x2)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x3)
             (not(free ?x1))
             (not(free ?x2))
@@ -2168,7 +2151,7 @@
             (isStart ?x1)
             (Know ?x2 ?ag1 ?x1)
             (isStart ?x2)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x3)
             (not(free ?x1))
             (not(free ?x2))
@@ -2239,7 +2222,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-            ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2308,7 +2291,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-            ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2378,7 +2361,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-           ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2447,7 +2430,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-            ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2496,13 +2479,8 @@
 (:action test1
     :parameters (?x1 ?x2 ?x3 - id)
     :precondition (and 
-        (Know ?x1 sally ?x2)
+        (isTold ?x1 sally ?x2)
         ;(Ignore ?x3 anne ?x2)
-        (forall(?x3 - id)
-            (and 
-                (not(Know ?x3 anne ?x2))
-            )
-        )
     )
     :effect (and 
         (ok1)
@@ -2514,16 +2492,11 @@
 ;-- and Anne must ignore this fact
 
 (:action test2
-    :parameters (?x1 ?x2 - id)
+    :parameters (?x1 ?x2 ?x3 - id)
     :precondition (and 
         (isIn ?x1 ball box1)
         (blamed ?x2 sally ?x1 robot)        
-        ;(Ignore ?x3 anne ?x2)
-        (forall(?x3 - id)
-            (and 
-                (not (Know ?x3 anne ?x2))
-            )
-        )
+        (Ignore ?x3 anne ?x2)
     )
     :effect (and 
         (ok2)
@@ -2555,7 +2528,13 @@
         (forall(?x1 - id ?ag2 - agent)
             (and 
                 (not (insulted ?x1 sally ?ag2))
-
+                ; (not (blamed ?x1 sally ?x2 ?ag2))
+                ; (not (givenCredit ?x1 sally ?x2 ?ag2))
+                ; (not (praised ?x1 sally ?ag2))
+                ; (not (insulted ?x1 anne ?ag2))
+                ; (not (blamed ?x1 anne ?x2 ?ag2))
+                ; (not (givenCredit ?x1 anne ?x2 ?ag2))
+                ; (not (praised ?x1 anne ?ag2))
             )
         )
     )
@@ -2569,18 +2548,12 @@
 ;-- ignores that the other one is feeling the same
 
 (:action test5
-    :parameters (?x1 ?x2 ?x3 ?x4 - id)
+    :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id)
     :precondition (and 
         (isEcstasy_joy_serenity ?x1 sally ?x2)
         (isEcstasy_joy_serenity ?x3 anne ?x4)
-        ;(Ignore ?x5 sally ?x3)
-        ;(Ignore ?x6 anne ?x1)
-        (forall(?x5 ?x6 - id)
-            (and 
-                (not (Know ?x5 sally ?x3))
-                (not (Know ?x6 anne ?x1))
-            )
-        )
+        (Ignore ?x5 sally ?x3)
+        (Ignore ?x6 anne ?x1)
     )
     :effect (and 
         (ok5)
@@ -2603,20 +2576,5 @@
         (ok6)
     )
 )
-
-
-;-- Seventh case: Sally is happy because anne is sad (sadic behaviour)
-
-(:action test7
-    :parameters (?x1 ?x2 ?x3 - id)
-    :precondition (and 
-        (isGrief_sadness_pensiveness ?x1 anne ?x2)
-        (isEcstasy_joy_serenity ?x3 sally ?x1)
-    )
-    :effect (and 
-        (ok7)
-    )
-)
-
 
 )
