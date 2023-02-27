@@ -1,4 +1,4 @@
-(define (domain thesis_domain)
+(define (domain thesis_domain_prova)
 
 (:requirements :adl :derived-predicates :strips :typing :conditional-effects :negative-preconditions :equality)
 
@@ -30,6 +30,7 @@
         (givenCredit ?x1 - id ?ag1 - agent ?x2 - id ?ag2 - agent)
         (Willing ?x1 - id ?ag1 - agent ?x2 - id)
         (NotSureIfWilling ?x1 - id ?ag1 - agent ?x2 - id)
+        (Desire ?x1 - id ?ag - agent ?x2 - id)
         (isEcstasy_joy_serenity ?x1 - id ?ag1 - agent ?x2 - id)
         (isGrief_sadness_pensiveness ?x1 - id ?ag1 - agent ?x2 - id)
         (isRage_anger_annoyance ?x1 - id ?ag1 - agent ?x2 - id)
@@ -40,6 +41,8 @@
         (isNarcissist ?ag - agent)
         (isPsychopath ?ag - agent)
         (isDependent ?ag2 ?ag1 - agent)
+        (isEmpathic ?ag - agent)
+        (isNeutral ?ag - agent)
         (ok1)
         (ok2)
         (ok3)
@@ -47,6 +50,10 @@
         (ok5)
         (ok6)
         (ok7)
+        (ok8)
+        (ok9)
+        (ok10)
+        (ok11)
 )
 
 ;-- There will be 21 different blocks of emotions that an agent can feel or cause. 
@@ -61,31 +68,32 @@
             (and
                 (isTold ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isEmpathic ?ag2)
             )
         )
 )
 
-(:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTold ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTold ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isNarcissist ?ag2)
@@ -93,41 +101,42 @@
         )
 )
 
-(:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTold ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTold ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isDependent ?ag2 ?ag1)
             )
         )
 )
 
-(:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTold ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTold ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 
 ;-- Second block
@@ -138,86 +147,226 @@
             (and
                 (isTold ?x3 ?ag2 ?x1)
                 (Know ?x2 ?ag1 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isDependent ?ag2 ?ag1)
             )
         )
 )
 
-(:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTold ?x3 ?ag2 ?x1)
+;                 (Know ?x2 ?ag1 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x3 ?ag2 ?x1)
                 (Know ?x2 ?ag1 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
-                (isNarcissist ?ag2)
+                (or 
+                    (isNarcissist ?ag2)
+                    (isPsychopath ?ag2)
+                )
             )
         )
 )
 
-(:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTold ?x3 ?ag2 ?x1)
+;                 (Know ?x2 ?ag1 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x3 ?ag2 ?x1)
                 (Know ?x2 ?ag1 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
-                (isNarcissist ?ag2)
+                (or 
+                    (isNarcissist ?ag2)
+                    (isPsychopath ?ag2)
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                )
             )
         )
 )
 
-(:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTold ?x3 ?ag2 ?x1)
+;                 (Know ?x2 ?ag1 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 
 ;-- Third block of derived emotions.
 ;-- The agent 2 is {emotion} if he insults/praises/blames/giveCredit agent 1. 
 ;-- Please notice that not all derived predicates will be active at the same time; some will be commented/decommented in order to achieve different  behaviours.
 
-(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+; (:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (insulted ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;                 (isSadic ?ag2)
+;             )
+;         )   
+; )
+
+(:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
+       (exists (?ag1 - agent)
+            (and
+                (insulted ?x1 ?ag1 ?ag2)
+                (isStart ?x1)
+                (isEnd ?x2)
+                (isEmpathic ?ag2)
+            )
+        )     
+)
+
+; (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (insulted ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )    
+; )
+
+(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
         (exists (?ag1 - agent)
             (and
                 (insulted ?x1 ?ag1 ?ag2)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (isDependent ?ag2 ?ag1)
+            )
+        )   
+)
+
+; (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (insulted ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (insulted ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+
+
+(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag1 - agent)
+            (and
+                (praised ?x1 ?ag1 ?ag2)
+                (isStart ?x1)
+                (isEnd ?x2)
+                (or 
+                    (isPsychopath ?ag2)
+                    (isEmpathic ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
+            )
+        )   
+)
+
+; (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
+;        (exists (?ag1 - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )     
+; )
+
+; (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )    
+; )
+
+; (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+; (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag2)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+
+
+(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag1 - agent)
+            (and
+                (blamed ?x1 ?ag1 ?x2 ?ag2)
+                (isStart ?x1)
                 (isSadic ?ag2)
             )
         )   
@@ -226,171 +375,49 @@
 (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
        (exists (?ag1 - agent)
             (and
-                (insulted ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )     
-)
-
-(:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (insulted ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )    
-)
-
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (insulted ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (insulted ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (insulted ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-
-
-(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-       (exists (?ag1 - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )     
-)
-
-(:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )    
-)
-
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag2)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-
-
-(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
                 (blamed ?x1 ?ag1 ?x2 ?ag2)
                 (isStart ?x1)
-                (isSadic ?ag2)
+                (isEmpathic ?ag2)
             )
         )   
 )
 
-(:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-       (exists (?ag1 - agent)
-            (and
-                (blamed ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )   
-)
-
-(:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (blamed ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        ) 
-)
+; (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (blamed ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         ) 
+; )
 
 (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
         (exists (?ag1 - agent)
             (and
                 (blamed ?x1 ?ag1 ?x2 ?ag2)
                 (isStart ?x1)
+                (isDependent ?ag2 ?ag1)
             )
         ) 
 )
 
-(:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (blamed ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        ) 
-)
+; (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (blamed ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         ) 
+; )
 
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (blamed ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )  
-)
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (blamed ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         )  
+; )
 
 
 
@@ -400,54 +427,59 @@
             (and
                 (givenCredit ?x1 ?ag1 ?x2 ?ag2)
                 (isStart ?x1)
+                (or 
+                    (isPsychopath ?ag2)
+                    (isEmpathic ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )   
 )
 
-(:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-       (exists (?ag1 - agent)
-            (and
-                (givenCredit ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )   
-)
+; (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
+;        (exists (?ag1 - agent)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         )   
+; )
 
-(:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (givenCredit ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )   
-)
+; (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         )   
+; )
 
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-       (exists (?ag1 - agent)
-            (and
-                (givenCredit ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )   
-)
+; (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
+;        (exists (?ag1 - agent)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         )   
+; )
 
-(:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (givenCredit ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )   
-)
+; (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         )   
+; )
 
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag1 - agent)
-            (and
-                (givenCredit ?x1 ?ag1 ?x2 ?ag2)
-                (isStart ?x1)
-            )
-        )   
-)
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag1 - agent)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x2 ?ag2)
+;                 (isStart ?x1)
+;             )
+;         )   
+; )
 
 
 
@@ -461,8 +493,8 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
                 (isSadic ?ag2)
             )
         )    
@@ -475,8 +507,13 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )    
 )
@@ -488,8 +525,12 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                )
             )
         )    
 )
@@ -501,37 +542,38 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (isDependent ?ag2 ?ag1)
             )
         )    
 )
 
-(:derived (isAmazement_surprise_distraction ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent)
-            (and
-                (insulted ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isAmazement_surprise_distraction ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent)
+;             (and
+;                 (insulted ?x1 ?ag1 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
-(:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent)
-            (and
-                (insulted ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent)
+;             (and
+;                 (insulted ?x1 ?ag1 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
 
 
@@ -543,24 +585,29 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )    
 )
 
-(:derived (isGrief_sadness_pensiveness ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isGrief_sadness_pensiveness ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
 (:derived (isRage_anger_annoyance ?x2 - id ?ag2 - agent ?x1 - id)
         (exists (?ag1 ?ag - agent)
@@ -569,51 +616,51 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
                 (isSadic ?ag2)
             )
         )    
 )
 
-(:derived (isTerror_fear_apprehension ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isTerror_fear_apprehension ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
-(:derived (isAmazement_surprise_distraction ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isAmazement_surprise_distraction ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
-(:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent)
-            (and
-                (praised ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag1 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
 
 
@@ -625,8 +672,8 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
                 (isSadic ?ag2)
             )
         )    
@@ -639,24 +686,28 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )    
 )
 
-(:derived (isRage_anger_annoyance ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (blamed ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )  
-)
+; (:derived (isRage_anger_annoyance ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (blamed ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )  
+; )
 
 (:derived (isTerror_fear_apprehension ?x2 - id ?ag2 - agent ?x1 - id)
         (exists (?ag1 ?ag - agent ?x3 - id)
@@ -665,8 +716,9 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (isDependent ?ag2 ?ag1)
             )
         ) 
 )
@@ -678,24 +730,25 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (isEmpathic ?ag2)
             )
         ) 
 )
 
-(:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (blamed ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        ) 
-)
+; (:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (blamed ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         ) 
+; )
 
 
 
@@ -707,76 +760,80 @@
                 (Know ?x2 ?ag2 ?x1)
                 (isStart ?x1)
                 (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
+                (disjuncted_a ?ag2 ?ag)
+                (disjuncted_a ?ag2 ?ag1)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )    
 )
 
-(:derived (isGrief_sadness_pensiveness ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )    
-)
+; (:derived (isGrief_sadness_pensiveness ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )    
+; )
 
-(:derived (isRage_anger_annoyance ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        )  
-)
+; (:derived (isRage_anger_annoyance ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         )  
+; )
 
-(:derived (isTerror_fear_apprehension ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        ) 
-)
+; (:derived (isTerror_fear_apprehension ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         ) 
+; )
 
-(:derived (isAmazement_surprise_distraction ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        ) 
-)
+; (:derived (isAmazement_surprise_distraction ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         ) 
+; )
 
-(:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
-        (exists (?ag1 ?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
-                (isStart ?x1)
-                (isStart ?x2)
-                (disjuncted ?ag2 ?ag)
-                (disjuncted ?ag2 ?ag1)
-            )
-        ) 
-)
+; (:derived (isLoathing_disgust_boredom ?x2 - id ?ag2 - agent ?x1 - id)
+;         (exists (?ag1 ?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
+;                 (Know ?x2 ?ag2 ?x1)
+;                 (isStart ?x1)
+;                 (isStart ?x2)
+;                 (disjuncted_a ?ag2 ?ag)
+;                 (disjuncted_a ?ag2 ?ag1)
+;             )
+;         ) 
+; )
 
 
 
@@ -788,9 +845,14 @@
             (and
                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )
 )
@@ -800,7 +862,7 @@
             (and
                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isSadic ?ag2)
@@ -813,7 +875,7 @@
             (and
                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (or 
@@ -824,41 +886,41 @@
         )
 )
 
-(:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 
 
@@ -867,7 +929,7 @@
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isSadic ?ag2)
@@ -880,55 +942,61 @@
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )
 )
 
-(:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isDependent ?ag2 ?ag1)
             )
         )
 )
 
-(:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isNarcissist ?ag2)
@@ -939,26 +1007,27 @@
 
 
 
-(:derived (isEcstasy_joy_serenity ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isEcstasy_joy_serenity ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isEmpathic ?ag2)
             )
         )
 )
@@ -968,7 +1037,7 @@
             (and
                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isNarcissist ?ag2)
@@ -981,37 +1050,40 @@
             (and
                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
-                (isSadic ?ag2)
+                (or 
+                    (isSadic ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )
 )
 
-(:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 
 
@@ -1022,7 +1094,7 @@
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isSadic ?ag2)
@@ -1030,38 +1102,39 @@
         )
 )
 
-(:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isDependent ?ag2 ?ag1)
             )
         )
 )
@@ -1071,9 +1144,14 @@
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )
 )
@@ -1083,7 +1161,7 @@
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isNarcissist ?ag2)
@@ -1100,7 +1178,7 @@
             (and
                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isSadic ?ag2)
@@ -1108,65 +1186,66 @@
         )
 )
 
-(:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isGrief_sadness_pensiveness ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (isDependent ?ag2 ?ag1)
             )
         )
 )
 
-(:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 
 
@@ -1177,7 +1256,7 @@
             (and
                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isSadic ?ag2)
@@ -1190,55 +1269,59 @@
             (and
                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
+                (or 
+                    (isEmpathic ?ag2)
+                    (isDependent ?ag2 ?ag1)
+                )
             )
         )
 )
 
-(:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isRage_anger_annoyance ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isTerror_fear_apprehension ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
-(:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
-        (exists(?x2 - id ?ag1 - agent)
-            (and
-                (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
-                (isStart ?x3)
-                (isStart ?x2)
-            )
-        )
-)
+; (:derived (isAmazement_surprise_distraction ?x3 - id ?ag2 - agent ?x1 - id)
+;         (exists(?x2 - id ?ag1 - agent)
+;             (and
+;                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
+;                 (Know ?x3 ?ag2 ?x1)
+;                 (disjuncted_a ?ag1 ?ag2)
+;                 (isStart ?x3)
+;                 (isStart ?x2)
+;             )
+;         )
+; )
 
 (:derived (isLoathing_disgust_boredom ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
                 (Know ?x3 ?ag2 ?x1)
-                (disjuncted ?ag1 ?ag2)
+                (disjuncted_a ?ag1 ?ag2)
                 (isStart ?x3)
                 (isStart ?x2)
                 (isNarcissist ?ag2)
@@ -1254,127 +1337,103 @@
 ;-- Agent 2 is {emotion} if it's been insulted/praised/blamed/givenCredit by someone.
 
 (:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
+        (exists (?ag - agent ?x3 - id)
             (and
                 (insulted ?x1 ?ag2 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
                 (isSadic ?ag2)
             )
         )   
 )
 
 (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
+        (exists (?ag - agent ?x3 - id)
             (and
                 (insulted ?x1 ?ag2 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
-            (and
-                (insulted ?x1 ?ag2 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
-            (and
-                (insulted ?x1 ?ag2 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
-            (and
-                (insulted ?x1 ?ag2 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
-            (and
-                (insulted ?x1 ?ag2 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
-
-
-
-
-
-(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
-            (and
-                (praised ?x1 ?ag2 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (isEmpathic ?ag2)
             )
         )   
 )
 
 (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
+        (exists (?ag1 - agent ?x3 - id)
             (and
-                (praised ?x1 ?ag2 ?ag)
+                (insulted ?x1 ?ag2 ?ag1)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (isDependent ?ag2 ?ag1)
             )
         )   
 )
 
 (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
+        (exists (?ag - agent ?x3 - id)
             (and
-                (praised ?x1 ?ag2 ?ag)
+                (insulted ?x1 ?ag2 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (or 
+                    (isPsychopath ?ag2)
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                )
             )
         )   
 )
 
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
-            (and
-                (praised ?x1 ?ag2 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
+; (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent)
+;             (and
+;                 (insulted ?x1 ?ag2 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+; (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent)
+;             (and
+;                 (insulted ?x1 ?ag2 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
 
 (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
+        (exists (?ag1 - agent ?x3 - id)
             (and
-                (praised ?x1 ?ag2 ?ag)
+                (insulted ?x1 ?ag2 ?ag1)
                 (isStart ?x1)
                 (isEnd ?x2)
-                (isSadic ?ag2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (isDependent ?ag2 ?ag1)
             )
         )   
 )
 
 (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent)
+        (exists (?ag - agent ?x3 - id)
             (and
-                (praised ?x1 ?ag2 ?ag)
+                (insulted ?x1 ?ag2 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (isPsychopath ?ag2)
             )
         )   
 )
@@ -1386,130 +1445,304 @@
 (:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
         (exists (?ag - agent ?x3 - id)
             (and
+                (praised ?x1 ?ag2 ?ag)
+                (isStart ?x1)
+                (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (or 
+                    (isPsychopath ?ag2)
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                    (isNarcissist ?ag2)
+                )
+            )
+        )   
+)
+
+(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag1 - agent ?x3 - id)
+            (and
+                (praised ?x1 ?ag2 ?ag1)
+                (isStart ?x1)
+                (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (isDependent ?ag2 ?ag1)
+            )
+        )   
+)
+
+; (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag2 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+; (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag2 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+; (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag2 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+(:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag - agent ?x3 - id)
+            (and
+                (praised ?x1 ?ag2 ?ag)
+                (isStart ?x1)
+                (isEnd ?x2)
+                (Know ?x3 ?ag2 ?x1)
+                (isStart ?x3)
+                (isSadic ?ag2)
+            )
+        )   
+)
+
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent)
+;             (and
+;                 (praised ?x1 ?ag2 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+
+
+
+
+(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag - agent ?x3 ?x4 - id)
+            (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
                 (isSadic ?ag2)
             )
         )   
 )
 
 (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+        (exists (?ag - agent ?x3 ?x4 - id)
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
+                (isEmpathic ?ag2)
+            )
+        )     
+)
+
+(:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag1 - agent ?x3 ?x4  - id)
+            (and
+                (blamed ?x1 ?ag2 ?x3 ?ag1)
+                (isStart ?x1)
+                (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
+                (isDependent ?ag2 ?ag1)
             )
         )     
 )
 
 (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+        (exists (?ag - agent ?x3 ?x4 - id)
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
+                (or 
+                    (isPsychopath ?ag2)
+                    (isNeutral ?ag2)
+                )
             )
         )    
 )
 
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
-            (and
-                (blamed ?x1 ?ag2 ?x3 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )    
-)
+; (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (blamed ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )    
+; )
+
+; (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (blamed ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
 
 (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+        (exists (?ag1 - agent ?x3 ?x4 - id)
             (and
-                (blamed ?x1 ?ag2 ?x3 ?ag)
+                (blamed ?x1 ?ag2 ?x3 ?ag1)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
+                (isDependent ?ag2 ?ag1)
             )
         )   
 )
 
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
-            (and
-                (blamed ?x1 ?ag2 ?x3 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )   
-)
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (blamed ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
 
 
 
 
 
 (:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+        (exists (?ag - agent ?x3 ?x4 - id)
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
+                (or 
+                    (isPsychopath ?ag2)
+                    (isEmpathic ?ag2)
+                    (isNeutral ?ag2)
+                )
             )
         )   
 )
 
-(:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+(:derived (isEcstasy_joy_serenity ?x1 - id ?ag2 - agent ?x2 - id)
+        (exists (?ag1 - agent ?x3 ?x4 - id)
             (and
-                (givenCredit ?x1 ?ag2 ?x3 ?ag)
+                (givenCredit ?x1 ?ag2 ?x3 ?ag1)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
+                (isDependent ?ag2 ?ag1)
             )
-        )     
+        )   
 )
 
-(:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag2 ?x3 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )    
-)
+; (:derived (isGrief_sadness_pensiveness ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )     
+; )
 
-(:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
-            (and
-                (givenCredit ?x1 ?ag2 ?x3 ?ag)
-                (isStart ?x1)
-                (isEnd ?x2)
-            )
-        )    
-)
+; (:derived (isRage_anger_annoyance ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )    
+; )
+
+; (:derived (isTerror_fear_apprehension ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )    
+; )
 
 (:derived (isAmazement_surprise_distraction ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+        (exists (?ag - agent ?x3 ?x4 - id)
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
                 (isStart ?x1)
                 (isEnd ?x2)
+                (Know ?x4 ?ag2 ?x1)
+                (isStart ?x4)
                 (isSadic ?ag2)
             )
         )   
 )
 
-(:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
-        (exists (?ag - agent ?x3 - id)
+; (:derived (isLoathing_disgust_boredom ?x1 - id ?ag2 - agent ?x2 - id)
+;         (exists (?ag - agent ?x3 - id)
+;             (and
+;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
+;                 (isStart ?x1)
+;                 (isEnd ?x2)
+;             )
+;         )   
+; )
+
+
+
+
+;-- Blocks of derived predicates relative to the goal of an gent
+
+(:derived (isEcstasy_joy_serenity ?x2 - id ?ag - agent ?g - id)
+        (exists (?x1 ?x3 - id ?o ?r - entity)
             (and
-                (givenCredit ?x1 ?ag2 ?x3 ?ag)
+                (isIn ?x1 ?o ?r)
+                (Know ?x3 ?ag ?x1)
                 (isStart ?x1)
-                (isEnd ?x2)
+                (Desire ?x2 ?ag ?g)
+                (isIn ?g ?o ?r)
             )
         )   
 )
 
-
+(:derived (isEcstasy_joy_serenity ?x2 - id ?ag1 - agent ?g - id)
+        (exists (?x1 ?x3 - id ?ag2 - agent ?r - entity)
+            (and
+                (isAt ?x1 ?ag2 ?r)
+                (Know ?x3 ?ag1 ?x1)
+                (isStart ?x1)
+                (Desire ?x2 ?ag1 ?g)
+                (isAt ?g ?ag2 ?r)
+            )
+        )   
+)
 
 ;-- In the following actions, we assume that the robot can ask to do something
 ;-- to an agent in the room or out of the room. 
@@ -1543,6 +1776,7 @@
  
             (disjuncted_r ?r1 ?r2)
             (disjuncted ?p ?box)
+            (disjuncted ?o ?box)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag1)
             (disjuncted_a robot ?ag2)
@@ -1562,14 +1796,17 @@
 ;-- Please note that the only fact that is directly known to the robot is ?x4, which was already in the preconditions; however, we 
 
             (not (isIn ?x4 ?o ?p))
-            (isIn ?x4 ?o ?box)
             (not (Know ?x6 ?ag2 ?x4))
-            ;(Ignore ?x6 ?ag2 ?x4)
+
+            (isIn ?x4 ?o ?box)
+            (Ignore ?x6 ?ag2 ?x4)
+            
             (isIn ?x7 ?o ?p)
             (Know ?x8 ?ag2 ?x7)
             (isStart ?x8)
-            ;(Ignore ?x9 ?ag1 ?x7)
+            (Ignore ?x9 ?ag1 ?x7)
             (isStart ?x9)
+
             (not (free ?x7))
             (not (free ?x8))
             (not (free ?x9))
@@ -1602,6 +1839,7 @@
 
             (disjuncted_r ?r1 ?r2)
             (disjuncted ?p ?box)
+            (disjuncted ?o ?box)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag1)
             (disjuncted_a robot ?ag2)
@@ -1617,11 +1855,11 @@
             (not (isIn ?x4 ?o ?p))
             (isIn ?x4 ?o ?box)
             (not (Know ?x6 ?ag2 ?x4))
-            ;(Ignore ?x6 ?ag2 ?x4)
+            (Ignore ?x6 ?ag2 ?x4)
             (isIn ?x7 ?o ?p)
             (Know ?x8 ?ag2 ?x7)
             (isStart ?x8)
-            ;(Ignore ?x9 ?ag1 ?x7)
+            (Ignore ?x9 ?ag1 ?x7)
             (isStart ?x9)
             (not (free ?x7))
             (not (free ?x8))
@@ -1655,6 +1893,7 @@
             (Willing ?x7 ?ag1 ?x4)
 
             (disjuncted ?p ?box)
+            (disjuncted ?o ?box)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag1)
             (disjuncted_a robot ?ag2)
@@ -1690,6 +1929,7 @@
             (NotSureIfWilling ?x7 ?ag1 ?x4)
 
             (disjuncted ?p ?box)
+            (disjuncted ?o ?box)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag1)
             (disjuncted_a robot ?ag2)
@@ -1781,7 +2021,7 @@
             (Know ?x5 ?ag2 ?x2)
             (isStart ?x4)
             (isStart ?x5)
-            (NotSureIfWilling ?x6 ?ag1 ?x2)
+            (Willing ?x6 ?ag1 ?x2)
             (disjuncted_r ?r1 ?r2)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag1)
@@ -1837,12 +2077,7 @@
             (isStart ?x4)
             (isAt ?x5 ?ag2 ?r2)
             (isStart ?x5)
-            ;(Ignore ?x2 ?ag1 ?x1)
-            (forall(?x2 - id)
-                (and 
-                    (not (Know ?x2 ?ag1 ?x1))
-                )
-            )
+            (Ignore ?x2 ?ag1 ?x1)
 
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
@@ -1850,10 +2085,11 @@
             (disjuncted_r ?r1 ?r2)
     )
     :effect (and 
-            ;(not(Ignore ?x2 ?ag1 ?x1))
+            (not(Ignore ?x2 ?ag1 ?x1))
             (isTold ?x2 ?ag1 ?x1)
     )
 )
+
 
 ;-- The action Tell_Everybody is executed by the robot to tell ?ag1 and ?ag2 something that they ignored
 ;-- The effect is that ?ag1 and ?ag2 are told the fact - a derived predicate will determine the effects of being told something: ?ag1 and ?ag2 will know the fact but may also experience an emotional consequence 
@@ -1868,21 +2104,15 @@
             (isStart ?x3)
             (isAt ?x4 ?ag2 ?r)
             (isStart ?x4)
-            ;(Ignore ?x5 ?ag1 ?x1)
-            ;(Ignore ?x6 ?ag2 ?x1)
-            (forall(?x5 ?x6 - id)
-                (and 
-                    (not (Know ?x5 ?ag1 ?x1))
-                    (not (Know ?x6 ?ag2 ?x1))
-                )
-            )
+            (Ignore ?x5 ?ag1 ?x1)
+            (Ignore ?x6 ?ag2 ?x1)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
             (disjuncted_a robot ?ag1)
     )
     :effect (and 
-            ;(not(Ignore ?x5 ?ag1 ?x1))
-            ;(not(Ignore ?x6 ?ag2 ?x1))
+            (not(Ignore ?x5 ?ag1 ?x1))
+            (not(Ignore ?x6 ?ag2 ?x1))
             (isTold ?x5 ?ag1 ?x1)
             (isTold ?x6 ?ag2 ?x1)
     )
@@ -1902,19 +2132,14 @@
             (isStart ?x3)
             (isAt ?x4 ?ag2 ?r)
             (isStart ?x4)
-            ;(Ignore ?x6 ?ag1 ?x1)
-            (forall(?x6 - id)
-                (and 
-                    (not (Know ?x6 ?ag1 ?x1))
-                )
-            )            
+            (Ignore ?x6 ?ag1 ?x1)
             (Know ?x7 ?ag2 ?x1)
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
             (disjuncted_a robot ?ag1)
     )
     :effect (and 
-            ;(not(Ignore ?x6 ?ag1 ?x1))
+            (not(Ignore ?x6 ?ag1 ?x1))
             (isTold ?x6 ?ag1 ?x1)
     )
 )
@@ -1953,7 +2178,7 @@
     :effect (and 
             (insulted ?x1 ?ag1 robot)
             (Know ?x2 ?ag1 ?x1)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x1)
             (isStart ?x2)
             (isStart ?x3)
@@ -2027,7 +2252,7 @@
             (isStart ?x1)
             (Know ?x2 ?ag1 ?x1)
             (isStart ?x2)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x3)
             (not(free ?x1))
             (not(free ?x2))
@@ -2099,7 +2324,7 @@
             (isStart ?x1)
             (Know ?x2 ?ag1 ?x1)
             (isStart ?x2)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x3)
             (not(free ?x1))
             (not(free ?x2))
@@ -2168,7 +2393,7 @@
             (isStart ?x1)
             (Know ?x2 ?ag1 ?x1)
             (isStart ?x2)
-            ;(Ignore ?x3 ?ag2 ?x1)
+            (Ignore ?x3 ?ag2 ?x1)
             (isStart ?x3)
             (not(free ?x1))
             (not(free ?x2))
@@ -2239,7 +2464,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-            ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2308,7 +2533,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-            ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2378,7 +2603,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-           ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2447,7 +2672,7 @@
             (isStart ?x1)
             (Know ?x3 ?ag1 ?x1)
             (isStart ?x3)
-            ;(Ignore ?x4 ?ag2 ?x1)
+            (Ignore ?x4 ?ag2 ?x1)
             (isStart ?x4)
             (not(free ?x1))
             (not(free ?x3))
@@ -2491,18 +2716,13 @@
 
 
 
-;-- First test: Teel something to Sally that Anne ignores
-
+;-- First test
 (:action test1
     :parameters (?x1 ?x2 ?x3 - id)
     :precondition (and 
         (Know ?x1 sally ?x2)
-        ;(Ignore ?x3 anne ?x2)
-        (forall(?x3 - id)
-            (and 
-                (not(Know ?x3 anne ?x2))
-            )
-        )
+        (Ignore ?x3 anne ?x2)
+        (isStart ?x2)
     )
     :effect (and 
         (ok1)
@@ -2510,20 +2730,15 @@
 )
 
 
-;-- Second test: The robot blames Sally that the ball is in box1 (meaning that it has been moved)
-;-- and Anne must ignore this fact
-
+;-- Second test
 (:action test2
-    :parameters (?x1 ?x2 - id)
+    :parameters (?x1 ?x2 ?x3 - id)
     :precondition (and 
         (isIn ?x1 ball box1)
         (blamed ?x2 sally ?x1 robot)        
-        ;(Ignore ?x3 anne ?x2)
-        (forall(?x3 - id)
-            (and 
-                (not (Know ?x3 anne ?x2))
-            )
-        )
+        (Ignore ?x3 anne ?x2)
+        (isStart ?x2)
+        (isStart ?x1)
     )
     :effect (and 
         (ok2)
@@ -2531,9 +2746,7 @@
 )
 
 
-;-- Third test: Agent 2 insults agent 1 and the robot tells agent 1 about this
-;-- (this implies that agent 1 is not in the room while she is being insulted)
-
+;-- Third test
 (:action test3
     :parameters (?x1 ?x2 - id ?ag1 ?ag2 - agent)
     :precondition (and 
@@ -2546,16 +2759,15 @@
 )
 
 
-;-- Fourth test: Sally is isGrief_sadness_pensiveness but she has not been insulted.
-
+;-- Fourth test
 (:action test4
     :parameters (?x3 ?x4 - id)
     :precondition (and 
         (isGrief_sadness_pensiveness ?x3 sally ?x4)
-        (forall(?x1 - id ?ag2 - agent)
+        
+        (forall(?x - id ?ag - agent)
             (and 
-                (not (insulted ?x1 sally ?ag2))
-
+                (not (insulted ?x sally ?ag))
             )
         )
     )
@@ -2565,22 +2777,16 @@
 )
 
 
-;-- Fifth test: Both Anne and Sally are isEcstasy_joy_serenity but 
-;-- ignores that the other one is feeling the same
-
+; ;-- Fifth test
 (:action test5
-    :parameters (?x1 ?x2 ?x3 ?x4 - id)
+    :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id)
     :precondition (and 
         (isEcstasy_joy_serenity ?x1 sally ?x2)
         (isEcstasy_joy_serenity ?x3 anne ?x4)
-        ;(Ignore ?x5 sally ?x3)
-        ;(Ignore ?x6 anne ?x1)
-        (forall(?x5 ?x6 - id)
-            (and 
-                (not (Know ?x5 sally ?x3))
-                (not (Know ?x6 anne ?x1))
-            )
-        )
+        (isStart ?x1)
+        (isStart ?x3)
+        ; (Ignore ?x5 sally ?x3)
+        ; (Ignore ?x6 anne ?x1)
     )
     :effect (and 
         (ok5)
@@ -2588,14 +2794,13 @@
 )
 
 
-;-- Sixth test: Sally is feeling both isEcstasy_joy_serenity about something and isRage_anger_annoyance 
-;-- because Anne has been insulted, while Anne is isGrief_sadness_pensiveness about something
-
+;-- Sixth test
 (:action test6
     :parameters (?x1 ?x2 ?x3 ?x4 ?x5 ?x6 - id ?ag1 - agent)
     :precondition (and 
         (isGrief_sadness_pensiveness ?x1 anne ?x2)
         (isEcstasy_joy_serenity ?x3 sally ?x4)
+
         (insulted ?x5 anne ?ag1)
         (isRage_anger_annoyance ?x6 sally ?x5)
     )
@@ -2605,18 +2810,72 @@
 )
 
 
-;-- Seventh case: Sally is happy because anne is sad (sadic behaviour)
-
+;-- Seventh test
 (:action test7
-    :parameters (?x1 ?x2 ?x3 - id)
+    :parameters (?x1 ?x2 - id ?ag - agent)
     :precondition (and 
-        (isGrief_sadness_pensiveness ?x1 anne ?x2)
-        (isEcstasy_joy_serenity ?x3 sally ?x1)
+        (insulted ?x1 anne ?ag)
+        (isGrief_sadness_pensiveness ?x2 sally ?x1)
     )
     :effect (and 
         (ok7)
     )
 )
+
+
+;-- Eight test
+(:action test8
+    :parameters (?x1 ?x2 ?x3 ?x4 ?x5 - id ?ag1 ?ag2 - agent)
+    :precondition (and 
+            (isAt ?x1 ?ag1 elsewhere)
+            (isAt ?x2 ?ag2 elsewhere)
+            (disjuncted_a ?ag1 ?ag2)
+            (isIn ?x3 ball box1)
+            (isStart ?x3)
+            (Know ?x4 ?ag1 ?x3)
+            (isTold ?x5 ?ag2 ?x3)
+    )
+    :effect (and 
+        (ok8)
+    )
+)
+
+
+;-- Ninth test 
+(:action test9
+    :parameters (?x1 ?x2 ?x3 ?x4 - id ?ag2 - agent)
+    :precondition (and 
+            (isAt ?x1 sally elsewhere)
+            (isAt ?x2 ?ag2 elsewhere)
+            (disjuncted_a ?ag2 sally)
+            (isGrief_sadness_pensiveness ?x3 sally ?x4)
+    )
+    :effect (and 
+        (ok9)
+    )
+)
+
+;-- Tenth test
+(:action test10
+    :parameters (?x1 ?x2 ?x3 ?x4 - id ?ag2 - agent)
+    :precondition (and 
+            (isAt ?x1 sally elsewhere)
+            (isAt ?x2 ?ag2 elsewhere)
+            (disjuncted_a ?ag2 sally)
+            (isAmazement_surprise_distraction ?x3 sally ?x4)
+            (isStart ?x3)
+            (isStart ?x4)
+            (forall(?x ?y - id ?ag - agent)
+                (and
+                    (not(blamed ?x ?ag2 ?y ?ag))
+                )
+            )
+    )
+    :effect (and 
+        (ok10)
+    )
+)
+
 
 
 )

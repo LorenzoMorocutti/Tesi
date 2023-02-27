@@ -1,4 +1,4 @@
-(define (problem thesis_problem1) (:domain thesis_domain)
+(define (problem thesis_problem_prova_27_2) (:domain thesis_domain_prova_27_2)
 (:objects
     robot - agent
     anne - agent
@@ -33,11 +33,20 @@
     t20 - id
     t21 - id
     t22 - id
-    t23 - id
+
+    g1 - id
+    g2 - id
+    g3 - id
+    g4 - id
+    g5 - id
 )
 
 (:init
-    (hasStartAgent robot)
+    ;(isSadic robot)
+    (isEmpathic sally)
+;    (isNeutral anne)
+
+
     (isEnd end)
     
     ; All the start ids
@@ -57,7 +66,6 @@
     (isStart t14)
     (isStart t15)
     (isStart t16)
-    (isStart t23)
 
     ; All the free ids
     (free t17)
@@ -66,23 +74,70 @@
     (free t20)
     (free t21)
     (free t22) 
+    (free t23) 
 
     ; This disjunction is useful to avoid reusing the free ids in some actions
+    ; (disjuncted_id t17 t18)
+    ; (disjuncted_id t17 t19)
+    ; (disjuncted_id t17 t20)
+    ; (disjuncted_id t17 t21)
+    ; (disjuncted_id t17 t22)
+
+    ; (disjuncted_id t18 t19)
+    ; (disjuncted_id t18 t20)
+    ; (disjuncted_id t18 t21)
+    ; (disjuncted_id t18 t22)  
+
+    ; (disjuncted_id t19 t20)
+    ; (disjuncted_id t19 t21)
+    ; (disjuncted_id t19 t22)
+
+    ; (disjuncted_id t20 t21)
+    ; (disjuncted_id t20 t22)
+
+    ; (disjuncted_id t21 t22)
+
     (disjuncted_id t17 t18)
     (disjuncted_id t17 t19)
     (disjuncted_id t17 t20)
     (disjuncted_id t17 t21)
     (disjuncted_id t17 t22)
+    (disjuncted_id t17 t23)
+
+    ;(disjuncted_id t18 t17)
     (disjuncted_id t18 t19)
     (disjuncted_id t18 t20)
     (disjuncted_id t18 t21)
-    (disjuncted_id t18 t22)   
+    (disjuncted_id t18 t22)
+    (disjuncted_id t18 t23)
+
+    ;(disjuncted_id t19 t17)
+    ;(disjuncted_id t19 t18)   
     (disjuncted_id t19 t20)
     (disjuncted_id t19 t21)
     (disjuncted_id t19 t22)
+    (disjuncted_id t19 t23)
+
+    ;(disjuncted_id t20 t17)
+    ;(disjuncted_id t20 t18)
+    ;(disjuncted_id t20 t19)
     (disjuncted_id t20 t21)
     (disjuncted_id t20 t22)
+    (disjuncted_id t20 t23)
+
+    ;(disjuncted_id t21 t17)
+    ;(disjuncted_id t21 t18)
+    ;(disjuncted_id t21 t19)
+    ;(disjuncted_id t21 t20)
     (disjuncted_id t21 t22)
+    (disjuncted_id t21 t23)
+
+    ;(disjuncted_id t22 t17)
+    ;(disjuncted_id t22 t18)
+    ;(disjuncted_id t22 t19)
+    ;(disjuncted_id t22 t20)
+    ;(disjuncted_id t22 t21)
+    (disjuncted_id t22 t23)
 
     ; This disjunction is useful to avoid reusing the same agent in some actions
     (disjuncted_a sally anne)
@@ -137,10 +192,17 @@
     (Willing t13 anne t2)
     (NotSureIfWilling t14 sally t3)
 
-    ; Ignorance of the agents about a generic fact
+    (Desire t15 sally g1)
+    (isIn g1 ball box1)
+    (Desire t16 anne g2)
+    (isAt g2 sally elsewhere)
 
-    ; (Ignore t15 sally t16)
-    ; (Ignore t23 anne t16)
+    ; (NotWilling anne g3)
+    ; (isIn g3 ball box1)
+    ; (NotWilling sally g4)
+    ; (iaAt g4 sally elsewhere)
+    ; (NotWilling sally g5)
+    ; (isIn g5 ball box2)
 )
 
 
@@ -151,12 +213,17 @@
 
 (:goal  
     (and 
-        ;(ok1)
-        ;(ok2)
-        ;(ok3)
-        (ok4)
-        ;(ok5)
-        ;(ok6)
+        ;(ok1)     ;description: Want Sally to know something that is true that Anne doesn't know
+        ;(ok2)     ;!!!!!!description: Want to blame Sally because the ball is in the box1 while Anne ignores that she has been blamed
+        ;(ok3)     ;description: Tell agent 1 that he/she has been insulted by agent 2 
+        ;(ok4)     ;description: Want to make Sally sad without insulting her
+        (ok5)     ;!!!!!description: Want to make Sally and Anne happy for something while they both ignore the emotional state of the other one
+        ;(ok6)     ;description: Want to make Sally happy for something and angry because Anne has been insulted, while making Anne sad for something that isn't the insult
+        ;(ok7)     ;description: Want to make Sally sad by insulting Anne
+        ;(ok8)     ;description: Want an agent to know where the ball is while tolding this information to other one. Both should be out of the room at the end
+        ;(ok9)     ;description: Want to make Sally. She and the other agent should be out of the room at the end 
+        ;(ok10)    ;description: Want to make Sally surprised about a verified information, without blaming another agent, and both should be out of the room at the end 
+        ;(ok11)
     )
 )
 
