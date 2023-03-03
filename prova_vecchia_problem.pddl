@@ -78,28 +78,28 @@
     (isEnd end)
     
     ; All the start ids
-    (isFact t1)
-    (isFact t2)
-    (isFact t3)
-    (isFact t4)
-    (isFact t5)
-    (isFact t6)
-    (isFact t7)
-    (isFact t8)
-    (isFact t9)
-    (isFact t10)
-    (isFact t11)
-    (isFact t12)
-    (isFact t13)
-    (isFact t14)
-    (isFact t15)
-    (isFact t16)
-    (isFact t17)
-    (isFact t18)
-    (isFact t19)
-    (isFact t20)
-    (isFact t21)
-    (isFact t22)
+    (isTrue t1)
+    (isTrue t2)
+    (isTrue t3)
+    (isTrue t4)
+    (isTrue t5)
+    (isTrue t6)
+    (isTrue t7)
+    (isTrue t8)
+    (isTrue t9)
+    (isTrue t10)
+    (isTrue t11)
+    (isTrue t12)
+    (isTrue t13)
+    (isTrue t14)
+    (isTrue t15)
+    (isTrue t16)
+    (isTrue t17)
+    (isTrue t18)
+    (isTrue t19)
+    (isTrue t20)
+    (isTrue t21)
+    (isTrue t22)
 
     (taken t1)
     (taken t2)
@@ -186,10 +186,10 @@
 
     ; Willingness of the agents about changin room or putting the ball into the box
 
-    ; (Desire t11 sally g1)
-    ; (isIn g1 ball box1)
-    ; (Desire t12 anne g2)
-    ; (isAt g2 sally elsewhere)
+    (Desire t11 sally g1)
+    (isIn g1 ball box1)
+    (Desire t12 anne g2)
+    (isAt g2 sally elsewhere)
 
     (Willing t13 sally g3)
     (Willing t14 anne g3)
@@ -219,8 +219,8 @@
     (isNeutral sally)
     (isNeutral anne)
 
-    ;(isNeutral sally); for goal ok4
-    ;(isEmpathic anne); for goal ok5
+    ;(isNeutral sally); interesting for the goal ok4
+    ;(isEmpathic anne); interesting for the goal ok5
 )
 
 
@@ -235,12 +235,12 @@
         ;(ok2)     ;description: Want to blame Sally because the ball is in the box1 while Anne ignores that she has been blamed
         ;(ok3)     ;description: Tell agent 1 that he/she has been insulted by agent 2 
         ;(ok4)     ;description: Want to make Sally sad without insulting her
-        (ok5)     ;description: Want to make Sally and Anne happy for something while they both ignore the emotional state of the other one
+        ;(ok5)     ;description: Want to make Sally and Anne happy for something while they both ignore the emotional state of the other one
         ;(ok6)     ;description: Want to make Sally happy for something and angry because Anne has been insulted, while making Anne sad for something that isn't the insult
         ;(ok7)     ;description: Want to make Sally sad by insulting Anne
         ;(ok8)     ;description: Want an agent to know where the ball is while tolding this information to other one. Both should be out of the room at the end
         ;(ok9)     ;description: Want to make Sally sad. She and the other agent should be out of the room at the end 
-        ;(ok10)    ;description: Want to make Sally surprised about a verified information, without blaming another agent, and both should be out of the room at the end 
+        (ok10)    ;description: Want to make Sally surprised about a verified information, without blaming another agent, and both should be out of the room at the end 
         ;(ok11)
     )
 )
