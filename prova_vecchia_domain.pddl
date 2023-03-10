@@ -16,11 +16,11 @@
         (disjuncted_a ?a ?b - agent)
         (disjuncted_r ?a ?b - place)
         (taken ?x - id)
-        (free1 ?x - id)
-        (free2 ?x1 ?x2 - id) 
-        (free3 ?x1 ?x2 ?x3 - id)
-        (free4 ?x1 ?x2 ?x3 ?x4 - id)   
-        (Know ?x1 - id ?ag - agent ?x2 - id)
+        (metarepresentation1 ?x - id)
+        (metarepresentation2 ?x1 ?x2 - id) 
+        (metarepresentation3 ?x1 ?x2 ?x3 - id)
+        (metarepresentation4 ?x1 ?x2 ?x3 ?x4 - id)   
+        (Believe ?x1 - id ?ag - agent ?x2 - id)
         (Ignore ?x1 - id ?ag - agent ?x2 - id)
         (isTold ?x1 - id ?ag - agent ?x2 - id)
         (isTrue ?x - id)
@@ -64,15 +64,15 @@
 ;-- This is a logic representation of the personality disorder tables we built, that are more intuitive. 
 
 ;-- First block of derived emotions.
-;-- The agent 2 is {emotion} if something, that agent 2 already know, is told to agent 1.
+;-- The agent 2 is {emotion} if something, that agent 2 already Believe, is told to agent 1.
 ;-- Please notice that not all derived predicates will be active at the same time; some will be commented/decommented in order to achieve different  behaviours.
 
 (:derived (isEcstasy_joy_serenity ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 ?x4 - id ?ag1 - agent)
             (and
                 (isTold ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (Know ?x4 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x1)
+                (Believe ?x4 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x4)
                 (isTrue ?x3)
@@ -86,7 +86,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTold ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -98,8 +98,8 @@
         (exists(?x2 ?x4 - id ?ag1 - agent)
             (and
                 (isTold ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (Know ?x4 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x1)
+                (Believe ?x4 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x4)
                 (isTrue ?x3)
@@ -113,7 +113,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTold ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -125,8 +125,8 @@
         (exists(?x2 ?x4 - id ?ag1 - agent)
             (and
                 (isTold ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x1)
-                (Know ?x4 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x1)
+                (Believe ?x4 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x4)
                 (isTrue ?x3)
@@ -140,7 +140,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTold ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -150,13 +150,13 @@
 
 
 ;-- Second block
-;-- Agent 2 is {emotion} if Agent 1 knows something is been told to him.
+;-- Agent 2 is {emotion} if Agent 1 Believes something is been told to him.
 
 (:derived (isEcstasy_joy_serenity ?x3 - id ?ag2 - agent ?x1 - id)
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
+                (Believe ?x2 ?ag1 ?x1)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -169,7 +169,7 @@
          (exists(?x2 - id ?ag1 - agent)
              (and
                 (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
+                (Believe ?x2 ?ag1 ?x1)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -185,7 +185,7 @@
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
+                (Believe ?x2 ?ag1 ?x1)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -200,7 +200,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTold ?x3 ?ag2 ?x1)
-;                 (Know ?x2 ?ag1 ?x1)
+;                 (Believe ?x2 ?ag1 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -212,7 +212,7 @@
         (exists(?x2 - id ?ag1 - agent)
             (and
                 (isTold ?x3 ?ag2 ?x1)
-                (Know ?x2 ?ag1 ?x1)
+                (Believe ?x2 ?ag1 ?x1)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -230,7 +230,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTold ?x3 ?ag2 ?x1)
-;                 (Know ?x2 ?ag1 ?x1)
+;                 (Believe ?x2 ?ag1 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -506,7 +506,7 @@
         (exists (?ag1 ?ag - agent)
             (and
                 (insulted ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -520,7 +520,7 @@
         (exists (?ag1 ?ag - agent)
             (and
                 (insulted ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -537,7 +537,7 @@
         (exists (?ag1 ?ag - agent)
             (and
                 (insulted ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -554,7 +554,7 @@
         (exists (?ag1 ?ag - agent)
             (and
                 (insulted ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -568,7 +568,7 @@
 ;         (exists (?ag1 ?ag - agent)
 ;             (and
 ;                 (insulted ?x1 ?ag1 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -581,7 +581,7 @@
 ;         (exists (?ag1 ?ag - agent)
 ;             (and
 ;                 (insulted ?x1 ?ag1 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -597,7 +597,7 @@
         (exists (?ag1 ?ag - agent)
             (and
                 (praised ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -614,7 +614,7 @@
 ;         (exists (?ag1 ?ag - agent)
 ;             (and
 ;                 (praised ?x1 ?ag1 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -627,7 +627,7 @@
         (exists (?ag1 ?ag - agent)
             (and
                 (praised ?x1 ?ag1 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -644,7 +644,7 @@
 ;         (exists (?ag1 ?ag - agent)
 ;             (and
 ;                 (praised ?x1 ?ag1 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -657,7 +657,7 @@
 ;         (exists (?ag1 ?ag - agent)
 ;             (and
 ;                 (praised ?x1 ?ag1 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -670,7 +670,7 @@
 ;         (exists (?ag1 ?ag - agent)
 ;             (and
 ;                 (praised ?x1 ?ag1 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -686,7 +686,7 @@
         (exists (?ag1 ?ag - agent ?x3 - id)
             (and
                 (blamed ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -700,7 +700,7 @@
         (exists (?ag1 ?ag - agent ?x3 - id)
             (and
                 (blamed ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -717,7 +717,7 @@
 ;         (exists (?ag1 ?ag - agent ?x3 - id)
 ;             (and
 ;                 (blamed ?x1 ?ag1 ?x3 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -730,7 +730,7 @@
         (exists (?ag1 ?ag - agent ?x3 - id)
             (and
                 (blamed ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -744,7 +744,7 @@
         (exists (?ag1 ?ag - agent ?x3 - id)
             (and
                 (blamed ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -758,7 +758,7 @@
 ;         (exists (?ag1 ?ag - agent ?x3 - id)
 ;             (and
 ;                 (blamed ?x1 ?ag1 ?x3 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -774,7 +774,7 @@
         (exists (?ag1 ?ag - agent ?x3 - id)
             (and
                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -791,7 +791,7 @@
 ;         (exists (?ag1 ?ag - agent ?x3 - id)
 ;             (and
 ;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -804,7 +804,7 @@
         (exists (?ag1 ?ag - agent ?x3 - id)
             (and
                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
-                (Know ?x2 ?ag2 ?x1)
+                (Believe ?x2 ?ag2 ?x1)
                 (isTrue ?x1)
                 (isTrue ?x2)
                 (disjuncted_a ?ag2 ?ag)
@@ -818,7 +818,7 @@
 ;         (exists (?ag1 ?ag - agent ?x3 - id)
 ;             (and
 ;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -831,7 +831,7 @@
 ;         (exists (?ag1 ?ag - agent ?x3 - id)
 ;             (and
 ;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -844,7 +844,7 @@
 ;         (exists (?ag1 ?ag - agent ?x3 - id)
 ;             (and
 ;                 (givenCredit ?x1 ?ag1 ?x3 ?ag)
-;                 (Know ?x2 ?ag2 ?x1)
+;                 (Believe ?x2 ?ag2 ?x1)
 ;                 (isTrue ?x1)
 ;                 (isTrue ?x2)
 ;                 (disjuncted_a ?ag2 ?ag)
@@ -856,13 +856,13 @@
 
 
 ;-- Fifth block of emotions.
-;-- Agent 2 is {emotion} if he knows Agent 1 is {emotion}.
+;-- Agent 2 is {emotion} if he Believes Agent 1 is {emotion}.
 
 (:derived (isEcstasy_joy_serenity ?x3 - id ?ag2 - agent ?x2 - id)
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -878,7 +878,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -891,7 +891,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -907,7 +907,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -919,7 +919,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -931,7 +931,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isEcstasy_joy_serenity ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -945,7 +945,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -958,7 +958,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -974,7 +974,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -986,7 +986,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -999,7 +999,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1011,7 +1011,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isGrief_sadness_pensiveness ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1027,7 +1027,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1039,7 +1039,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1052,7 +1052,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1068,7 +1068,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1084,7 +1084,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1096,7 +1096,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isRage_anger_annoyance ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1112,7 +1112,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1125,7 +1125,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1137,7 +1137,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1149,7 +1149,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1165,7 +1165,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1181,7 +1181,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isTerror_fear_apprehension ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1198,7 +1198,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1211,7 +1211,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1223,7 +1223,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1235,7 +1235,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1247,7 +1247,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1260,7 +1260,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isAmazement_surprise_distraction ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1276,7 +1276,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1289,7 +1289,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1305,7 +1305,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1317,7 +1317,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1329,7 +1329,7 @@
 ;         (exists(?x2 - id ?ag1 - agent)
 ;             (and
 ;                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-;                 (Know ?x3 ?ag2 ?x1)
+;                 (Believe ?x3 ?ag2 ?x1)
 ;                 (disjuncted_a ?ag1 ?ag2)
 ;                 (isTrue ?x3)
 ;                 (isTrue ?x2)
@@ -1341,7 +1341,7 @@
         (exists(?x1 - id ?ag1 - agent)
             (and
                 (isLoathing_disgust_boredom ?x2 ?ag1 ?x1)
-                (Know ?x3 ?ag2 ?x2)
+                (Believe ?x3 ?ag2 ?x2)
                 (disjuncted_a ?ag1 ?ag2)
                 (isTrue ?x3)
                 (isTrue ?x2)
@@ -1362,7 +1362,7 @@
             (and
                 (insulted ?x1 ?ag2 ?ag)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (isSadic ?ag2)
             )
@@ -1374,7 +1374,7 @@
             (and
                 (insulted ?x1 ?ag2 ?ag)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)                
                 (isEmpathic ?ag2)               
             )
@@ -1386,7 +1386,7 @@
             (and
                 (insulted ?x1 ?ag2 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1398,7 +1398,7 @@
             (and
                 (insulted ?x1 ?ag2 ?ag)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (or 
                     (isPsychopath ?ag2)
@@ -1415,7 +1415,7 @@
             (and
                 (insulted ?x1 ?ag2 ?ag)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (isNarcissist ?ag2)
             )
@@ -1428,7 +1428,7 @@
 ;                 (insulted ?x1 ?ag2 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x3 ?ag2 ?x1)
+;		(Believe ?x3 ?ag2 ?x1)
 ;		(isTrue ?x3)
 ;             )
 ;         )   
@@ -1439,7 +1439,7 @@
             (and
                 (insulted ?x1 ?ag2 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1452,7 +1452,7 @@
 ;                 (insulted ?x1 ?ag2 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-; 		        (Know ?x3 ?ag2 ?x1)
+; 		        (Believe ?x3 ?ag2 ?x1)
 ; 		        (isTrue ?x3)
 ;             )
 ;         )   
@@ -1508,7 +1508,7 @@
             (and
                 (praised ?x1 ?ag2 ?ag)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (or 
                     (isEmpathic ?ag2)
@@ -1524,7 +1524,7 @@
             (and
                 (praised ?x1 ?ag2 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1537,7 +1537,7 @@
 ;                 (praised ?x1 ?ag2 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x3 ?ag2 ?x1)
+;		(Believe ?x3 ?ag2 ?x1)
 ;		(isTrue ?x3)
 ;             )
 ;         )   
@@ -1549,7 +1549,7 @@
 ;                 (praised ?x1 ?ag2 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x3 ?ag2 ?x1)
+;		(Believe ?x3 ?ag2 ?x1)
 ;		(isTrue ?x3)
 ;             )
 ;         )   
@@ -1561,7 +1561,7 @@
 ;                 (praised ?x1 ?ag2 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x3 ?ag2 ?x1)
+;		(Believe ?x3 ?ag2 ?x1)
 ;		(isTrue ?x3)
 ;             )
 ;         )   
@@ -1572,7 +1572,7 @@
             (and
                 (praised ?x1 ?ag2 ?ag)
                 (isTrue ?x1)
-		        (Know ?x3 ?ag2 ?x1)
+		        (Believe ?x3 ?ag2 ?x1)
 		        (isTrue ?x3)
                 (isSadic ?ag2)
             )
@@ -1585,7 +1585,7 @@
 ;                 (praised ?x1 ?ag2 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x3 ?ag2 ?x1)
+;		(Believe ?x3 ?ag2 ?x1)
 ;		(isTrue ?x3)
 ;             )
 ;         )   
@@ -1600,7 +1600,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isSadic ?ag2)
             )
@@ -1611,7 +1611,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isSadic ?ag2)
             )
@@ -1623,7 +1623,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (or 
                     (isEmpathic ?ag2)
@@ -1637,7 +1637,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (or 
                     (isEmpathic ?ag2)
@@ -1653,7 +1653,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1664,7 +1664,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1677,7 +1677,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)                
                 (isNarcissist ?ag2)               
             )
@@ -1688,7 +1688,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)                
                 (isNarcissist ?ag2)               
             )
@@ -1700,7 +1700,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isNarcissist ?ag2)
             )
@@ -1711,7 +1711,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isNarcissist ?ag2)
             )
@@ -1724,7 +1724,7 @@
 ;                 (blamed ?x1 ?ag2 ?x3 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x4 ?ag2 ?x1)
+;		(Believe ?x4 ?ag2 ?x1)
 ;		(isTrue ?x4)
 ;             )
 ;         )   
@@ -1735,7 +1735,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1746,7 +1746,7 @@
             (and
                 (blamed ?x1 ?ag2 ?x3 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1758,7 +1758,7 @@
 ;                 (blamed ?x1 ?ag2 ?x3 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x4 ?ag2 ?x1)
+;		(Believe ?x4 ?ag2 ?x1)
 ;		(isTrue ?x4)
 ;             )
 ;         )   
@@ -1770,7 +1770,7 @@
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (or 
                     (isEmpathic ?ag2)
@@ -1785,7 +1785,7 @@
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (or 
                     (isEmpathic ?ag2)
@@ -1801,7 +1801,7 @@
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1812,7 +1812,7 @@
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag1)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isDependent ?ag2 ?ag1)
             )
@@ -1825,7 +1825,7 @@
 ;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x4 ?ag2 ?x1)
+;		(Believe ?x4 ?ag2 ?x1)
 ;		(isTrue ?x4)
 ;             )
 ;         )     
@@ -1837,7 +1837,7 @@
 ;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x4 ?ag2 ?x1)
+;		(Believe ?x4 ?ag2 ?x1)
 ;		(isTrue ?x4)
 ;             )
 ;         )    
@@ -1849,7 +1849,7 @@
 ;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x4 ?ag2 ?x1)
+;		(Believe ?x4 ?ag2 ?x1)
 ;		(isTrue ?x4)
 ;             )
 ;         )    
@@ -1860,7 +1860,7 @@
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isSadic ?ag2)
             )
@@ -1871,7 +1871,7 @@
             (and
                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
                 (isTrue ?x1)
-		        (Know ?x4 ?ag2 ?x1)
+		        (Believe ?x4 ?ag2 ?x1)
 		        (isTrue ?x4)
                 (isSadic ?ag2)
             )
@@ -1884,7 +1884,7 @@
 ;                 (givenCredit ?x1 ?ag2 ?x3 ?ag)
 ;                 (isTrue ?x1)
 ;                 (isEnd ?x2)
-;		(Know ?x4 ?ag2 ?x1)
+;		(Believe ?x4 ?ag2 ?x1)
 ;		(isTrue ?x4)
 ;             )
 ;         )   
@@ -1899,7 +1899,7 @@
         (exists (?x1 ?x3 - id ?o ?r - entity)
             (and
                 (isIn ?x1 ?o ?r)
-		        (Know ?x3 ?ag ?x1)
+		        (Believe ?x3 ?ag ?x1)
                 (isTrue ?x3)
                 (Desire ?x2 ?ag ?g)
                 (isIn ?g ?o ?r)
@@ -1911,7 +1911,7 @@
         (exists (?x1 ?x3 - id ?ag2 - agent ?r - entity)
             (and
                 (isAt ?x1 ?ag2 ?r)
-		        (Know ?x3 ?ag1 ?x1)
+		        (Believe ?x3 ?ag1 ?x1)
                 (isTrue ?x3)
                 (Desire ?x2 ?ag1 ?g)
                 (isAt ?g ?ag2 ?r)
@@ -1941,8 +1941,8 @@
             (isIn ?x4 ?o ?p)
             (isTrue ?x4)
 
-            (Know ?x5 ?ag1 ?x4)
-            (Know ?x6 ?ag2 ?x4)
+            (Believe ?x5 ?ag1 ?x4)
+            (Believe ?x6 ?ag2 ?x4)
             (isTrue ?x5)
             (isTrue ?x6)
 
@@ -1964,22 +1964,22 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free4 ?x7 ?x8 ?x9 ?x10)
+            (metarepresentation4 ?x7 ?x8 ?x9 ?x10)
 
     )
     :effect (and 
             (not (isIn ?x4 ?o ?p))
             (not (isTrue ?x4))
-            (not (Know ?x5 ?ag1 ?x4))
-            (not (Know ?x6 ?ag2 ?x4))
+            (not (Believe ?x5 ?ag1 ?x4))
+            (not (Believe ?x6 ?ag2 ?x4))
 
             (isIn ?x10 ?o ?box)
             (isTrue ?x10)
-            (Know ?x5 ?ag1 ?x10)
+            (Believe ?x5 ?ag1 ?x10)
             (Ignore ?x6 ?ag2 ?x10)
 
             (isIn ?x7 ?o ?p)
-            (Know ?x8 ?ag2 ?x7)
+            (Believe ?x8 ?ag2 ?x7)
             (isTrue ?x8)
             (Ignore ?x9 ?ag1 ?x7)
             (isTrue ?x9)
@@ -1989,7 +1989,7 @@
             (taken ?x9)
             (taken ?x10)
 
-            (not (free4 ?x7 ?x8 ?x9 ?x10))
+            (not (metarepresentation4 ?x7 ?x8 ?x9 ?x10))
     )
 )
 
@@ -2006,8 +2006,8 @@
             (isIn ?x4 ?o ?p)
             (isTrue ?x4)
 
-            (Know ?x5 ?ag1 ?x4)
-            (Know ?x6 ?ag2 ?x4)
+            (Believe ?x5 ?ag1 ?x4)
+            (Believe ?x6 ?ag2 ?x4)
             (isTrue ?x5)
             (isTrue ?x6)
 
@@ -2029,21 +2029,21 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free4 ?x7 ?x8 ?x9 ?x10)
+            (metarepresentation4 ?x7 ?x8 ?x9 ?x10)
     )
     :effect (and 
             (not (isIn ?x4 ?o ?p))
             (not (isTrue ?x4))
-            (not (Know ?x5 ?ag1 ?x4))
-            (not (Know ?x6 ?ag2 ?x4))
+            (not (Believe ?x5 ?ag1 ?x4))
+            (not (Believe ?x6 ?ag2 ?x4))
 
             (isIn ?x10 ?o ?box)
             (isTrue ?x10)
-            (Know ?x5 ?ag1 ?x10)
+            (Believe ?x5 ?ag1 ?x10)
             (Ignore ?x6 ?ag2 ?x10)
 
             (isIn ?x7 ?o ?p)
-            (Know ?x8 ?ag2 ?x7)
+            (Believe ?x8 ?ag2 ?x7)
             (isTrue ?x8)
             (Ignore ?x9 ?ag1 ?x7)
             (isTrue ?x9)
@@ -2053,7 +2053,7 @@
             (taken ?x9)
             (taken ?x10)
 
-            (not (free4 ?x7 ?x8 ?x9 ?x10))
+            (not (metarepresentation4 ?x7 ?x8 ?x9 ?x10))
     )
 )
 
@@ -2069,8 +2069,8 @@
 
             (isIn ?x4 ?o ?p)
             (isTrue ?x4)
-            (Know ?x5 ?ag1 ?x4)
-            (Know ?x6 ?ag2 ?x4)
+            (Believe ?x5 ?ag1 ?x4)
+            (Believe ?x6 ?ag2 ?x4)
             (isTrue ?x5)
             (isTrue ?x6)
 
@@ -2090,20 +2090,20 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free1 ?x7)
+            (metarepresentation1 ?x7)
     )
     :effect (and 
             (not (isIn ?x4 ?o ?p))
             (not (isTrue ?x4))
-            (not (Know ?x5 ?ag1 ?x4))
-            (not (Know ?x6 ?ag2 ?x4))
+            (not (Believe ?x5 ?ag1 ?x4))
+            (not (Believe ?x6 ?ag2 ?x4))
 
             (isIn ?x7 ?o ?box)
             (isTrue ?x7)
-            (Know ?x5 ?ag1 ?x7)
-            (Know ?x6 ?ag2 ?x7)
+            (Believe ?x5 ?ag1 ?x7)
+            (Believe ?x6 ?ag2 ?x7)
             
-            (not (free1 ?x7))
+            (not (metarepresentation1 ?x7))
             (taken ?x7)
     )
 )
@@ -2121,8 +2121,8 @@
             (isIn ?x4 ?o ?p)
             (isTrue ?x4)
 
-            (Know ?x5 ?ag1 ?x4)
-            (Know ?x6 ?ag2 ?x4)
+            (Believe ?x5 ?ag1 ?x4)
+            (Believe ?x6 ?ag2 ?x4)
             (isTrue ?x5)
             (isTrue ?x6)
 
@@ -2142,18 +2142,18 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free1 ?x7)
+            (metarepresentation1 ?x7)
     )
     :effect (and 
             (not (isIn ?x4 ?o ?p))
             (not (isTrue ?x4))
-            (not (Know ?x5 ?ag1 ?x4))
-            (not (Know ?x6 ?ag2 ?x4))            
+            (not (Believe ?x5 ?ag1 ?x4))
+            (not (Believe ?x6 ?ag2 ?x4))            
             (isIn ?x7 ?o ?box)
             (isTrue ?x7)
-            (Know ?x5 ?ag1 ?x7)
-            (Know ?x6 ?ag2 ?x7)
-            (not (free1 ?x7))
+            (Believe ?x5 ?ag1 ?x7)
+            (Believe ?x6 ?ag2 ?x7)
+            (not (metarepresentation1 ?x7))
             (taken ?x7)
     )
 )
@@ -2168,8 +2168,8 @@
             (isAt ?x3 ?ag2 ?r3)
             (isTrue ?x3)
 
-            (Know ?x4 ?ag1 ?x2)
-            (Know ?x5 ?ag2 ?x2)
+            (Believe ?x4 ?ag1 ?x2)
+            (Believe ?x5 ?ag2 ?x2)
             (isTrue ?x4)
             (isTrue ?x5)
 
@@ -2203,8 +2203,8 @@
             (isAt ?x3 ?ag2 ?r3) ;
             (isTrue ?x3)
 
-            (Know ?x4 ?ag1 ?x2)
-            (Know ?x5 ?ag2 ?x2)
+            (Believe ?x4 ?ag1 ?x2)
+            (Believe ?x5 ?ag2 ?x2)
             (isTrue ?x4)
             (isTrue ?x5)
 
@@ -2237,8 +2237,8 @@
             (isTrue ?x2)
             (isAt ?x3 ?ag2 ?r3)  ;
             (isTrue ?x3)
-            (Know ?x4 ?ag1 ?x2)
-            (Know ?x5 ?ag2 ?x2)
+            (Believe ?x4 ?ag1 ?x2)
+            (Believe ?x5 ?ag2 ?x2)
             (isTrue ?x4)
             (isTrue ?x5)
 
@@ -2271,8 +2271,8 @@
             (isTrue ?x2)
             (isAt ?x3 ?ag2 ?r3)
             (isTrue ?x3)
-            (Know ?x4 ?ag1 ?x2)
-            (Know ?x5 ?ag2 ?x2)
+            (Believe ?x4 ?ag1 ?x2)
+            (Believe ?x5 ?ag2 ?x2)
             (isTrue ?x4)
             (isTrue ?x5)
 
@@ -2345,16 +2345,16 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free2 ?x7 ?x8)
+            (metarepresentation2 ?x7 ?x8)
     )
     :effect (and 
             (not(Ignore ?x5 ?ag1 ?x1))
             (not(Ignore ?x6 ?ag2 ?x1))
             (isTold ?x5 ?ag1 ?x1)
             (isTold ?x6 ?ag2 ?x1)
-            (Know ?x7 ?ag1 ?x6)
-            (Know ?x8 ?ag2 ?x5)
-            (not(free2 ?x7 ?x8))
+            (Believe ?x7 ?ag1 ?x6)
+            (Believe ?x8 ?ag2 ?x5)
+            (not(metarepresentation2 ?x7 ?x8))
     )
 )
 
@@ -2369,7 +2369,7 @@
             (isAt ?x4 ?ag2 ?r)
             (isTrue ?x4)
             (Ignore ?x6 ?ag1 ?x1)
-            (Know ?x7 ?ag2 ?x1)
+            (Believe ?x7 ?ag2 ?x1)
 
             (disjuncted_a ?ag1 ?ag2)
             (disjuncted_a robot ?ag2)
@@ -2379,13 +2379,13 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free1 ?x8)
+            (metarepresentation1 ?x8)
     )
     :effect (and 
             (not(Ignore ?x6 ?ag1 ?x1))
             (isTold ?x6 ?ag1 ?x1)
-            (Know ?x8 ?ag2 ?x6)
-            (not (free1 ?x8))
+            (Believe ?x8 ?ag2 ?x6)
+            (not (metarepresentation1 ?x8))
             (taken ?x8)
     )
 )
@@ -2421,11 +2421,11 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (insulted ?x1 ?ag1 robot)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (Ignore ?x3 ?ag2 ?x1)
             (isTrue ?x1)
             (isTrue ?x2)
@@ -2435,7 +2435,7 @@
             (taken ?x2)
             (taken ?x3)
 
-            (not(free3 ?x1 ?x2 ?x3))
+            (not(metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2461,21 +2461,21 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (insulted ?x1 ?ag1 robot)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
-            (Know ?x3 ?ag2 ?x1)
+            (Believe ?x3 ?ag2 ?x1)
             (isTrue ?x3)
 
             (taken ?x1)
             (taken ?x2)
             (taken ?x3)
 
-            (not(free3 ?x1 ?x2 ?x3))
+            (not(metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2502,12 +2502,12 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (insulted ?x1 ?ag2 ?ag1)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
             (Ignore ?x3 ?ag2 ?x1)
             (isTrue ?x3)
@@ -2516,7 +2516,7 @@
             (taken ?x2)
             (taken ?x3)
 
-            (not(free3 ?x1 ?x2 ?x3))
+            (not(metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2541,21 +2541,21 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (insulted ?x1 ?ag2 ?ag1)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
-            (Know ?x3 ?ag2 ?x1)
+            (Believe ?x3 ?ag2 ?x1)
             (isTrue ?x3)
 
             (taken ?x1)
             (taken ?x2)
             (taken ?x3)
 
-            (not (free3 ?x1 ?x2 ?x3))
+            (not (metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2583,12 +2583,12 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (praised ?x1 ?ag1 robot)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
             (Ignore ?x3 ?ag2 ?x1)
             (isTrue ?x3)
@@ -2597,7 +2597,7 @@
             (taken ?x2)
             (taken ?x3)
 
-            (not (free3 ?x1 ?x2 ?x3))
+            (not (metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2621,21 +2621,21 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (praised ?x1 ?ag1 robot)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
-            (Know ?x3 ?ag2 ?x1)
+            (Believe ?x3 ?ag2 ?x1)
             (isTrue ?x3)
 
             (taken ?x1)
             (taken ?x2)
             (taken ?x3)
 
-            (not (free3 ?x1 ?x2 ?x3))
+            (not (metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2661,12 +2661,12 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (praised ?x1 ?ag2 ?ag1)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
             (Ignore ?x3 ?ag2 ?x1)
             (isTrue ?x3)
@@ -2675,7 +2675,7 @@
             (taken ?x2)
             (taken ?x3)
 
-            (not (free3 ?x1 ?x2 ?x3))
+            (not (metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2699,21 +2699,21 @@
             ; (not (= ?ag2 robot))
             ; (not (= ?ag1 ?ag2))
 
-            (free3 ?x1 ?x2 ?x3)
+            (metarepresentation3 ?x1 ?x2 ?x3)
     )
     :effect (and 
             (praised ?x1 ?ag2 ?ag1)
             (isTrue ?x1)
-            (Know ?x2 ?ag1 ?x1)
+            (Believe ?x2 ?ag1 ?x1)
             (isTrue ?x2)
-            (Know ?x3 ?ag2 ?x1)
+            (Believe ?x3 ?ag2 ?x1)
             (isTrue ?x3)
 
             (taken ?x1)
             (taken ?x2)
             (taken ?x3)
 
-            (not(free3 ?x1 ?x2 ?x3))
+            (not(metarepresentation3 ?x1 ?x2 ?x3))
     )
 )
 
@@ -2743,12 +2743,12 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (blamed ?x1 ?ag1 ?x2 robot)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
             (Ignore ?x4 ?ag2 ?x1)
             (isTrue ?x4)
@@ -2757,7 +2757,7 @@
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -2783,21 +2783,21 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (blamed ?x1 ?ag1 ?x2 robot)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
-            (Know ?x4 ?ag2 ?x1)
+            (Believe ?x4 ?ag2 ?x1)
             (isTrue ?x4)
 
             (taken ?x1)
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -2825,12 +2825,12 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (blamed ?x1 ?ag2 ?x2 ?ag1)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
             (Ignore ?x4 ?ag2 ?x1)
             (isTrue ?x4)
@@ -2839,7 +2839,7 @@
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -2865,21 +2865,21 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (blamed ?x1 ?ag1 ?x2 ?ag2)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
-            (Know ?x4 ?ag2 ?x1)
+            (Believe ?x4 ?ag2 ?x1)
             (isTrue ?x4)
 
             (taken ?x1)
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -2908,12 +2908,12 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (givenCredit ?x1 ?ag1 ?x2 robot)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
             (Ignore ?x4 ?ag2 ?x1)
             (isTrue ?x4)
@@ -2922,7 +2922,7 @@
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -2948,21 +2948,21 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (givenCredit ?x1 ?ag1 ?x2 robot)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
-            (Know ?x4 ?ag2 ?x1)
+            (Believe ?x4 ?ag2 ?x1)
             (isTrue ?x4)
 
             (taken ?x1)
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -2990,12 +2990,12 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (givenCredit ?x1 ?ag2 ?x2 ?ag1)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
             (Ignore ?x4 ?ag2 ?x1)
             (isTrue ?x4)
@@ -3004,7 +3004,7 @@
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -3030,21 +3030,21 @@
 
             (taken ?x2)
 
-            (free3 ?x1 ?x3 ?x4)
+            (metarepresentation3 ?x1 ?x3 ?x4)
     )
     :effect (and 
             (givenCredit ?x1 ?ag1 ?x2 ?ag2)
             (isTrue ?x1)
-            (Know ?x3 ?ag1 ?x1)
+            (Believe ?x3 ?ag1 ?x1)
             (isTrue ?x3)
-            (Know ?x4 ?ag2 ?x1)
+            (Believe ?x4 ?ag2 ?x1)
             (isTrue ?x4)
 
             (taken ?x1)
             (taken ?x3)
             (taken ?x4)
 
-            (not (free3 ?x1 ?x3 ?x4))
+            (not (metarepresentation3 ?x1 ?x3 ?x4))
     )
 )
 
@@ -3054,7 +3054,7 @@
 (:action test1
     :parameters (?x1 ?x2 ?x3 - id)
     :precondition (and 
-        (Know ?x1 sally ?x2)
+        (Believe ?x1 sally ?x2)
         (Ignore ?x3 anne ?x2)
         (isTrue ?x2)
         (isTrue ?x1)
@@ -3151,22 +3151,20 @@
 
 
 (:action test6
-    :parameters (?x1 ?x3 ?x5 ?x6 - id ?ag - agent)
+    :parameters (?x1 ?x2 ?x3 - id ?ag - agent)
     :precondition (and 
-        (isGrief_sadness_pensiveness ?x1 anne ?x6)
-        ;(isRage_anger_annoyance ?x2 anne ?x6)
-        (isGrief_sadness_pensiveness ?x3 sally ?x5)
-        ;(isRage_anger_annoyance ?x4 sally ?x5)
+        (isGrief_sadness_pensiveness ?x1 anne ?x3)
+        (isRage_anger_annoyance ?x1 anne ?x3)
+        (isGrief_sadness_pensiveness ?x2 sally ?x3)
+        (isRage_anger_annoyance ?x2 sally ?x3)
 
         (isTrue ?x1)
-        ;(isTrue ?x2)
+        (isTrue ?x2)
         (isTrue ?x3)
-        ;(isTrue ?x4)
-        (isTrue ?x5)
-
-        (blamed ?x5 anne ?x6 ?ag)
-        (isIn ?x6 ball box2)
-        ;(insulted ?x5 anne ?ag)
+        
+        ;(blamed ?x5 anne ?x6 ?ag)
+        ;(isIn ?x6 ball box2)
+        (insulted ?x3 anne ?ag)
     )
     :effect (and 
         (ok6)
@@ -3200,7 +3198,7 @@
 
             (isIn ?x3 ball box1)
             (isTrue ?x3)
-            (Know ?x4 ?ag1 ?x3)
+            (Believe ?x4 ?ag1 ?x3)
             (isTrue ?x4)
             (isTold ?x5 ?ag2 ?x3)
             (isTrue ?x5)

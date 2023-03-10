@@ -127,20 +127,20 @@
     ; All the free ids
     ; This disjunction is useful to avoid reusing the free ids in some actions
 
-    (free1 t23)
-    (free1 t24)
+    (metarepresentation1 t23)
+    (metarepresentation1 t24)
 
-    (free2 t25 t26)
-    (free2 t27 t28)
-    (free2 t49 t50)
+    (metarepresentation2 t25 t26)
+    (metarepresentation2 t27 t28)
+    (metarepresentation2 t49 t50)
 
-    (free3 t29 t30 t31)
-    (free3 t32 t33 t34)
-    (free3 t35 t36 t37)
-    (free3 t38 t39 t40)
+    (metarepresentation3 t29 t30 t31)
+    (metarepresentation3 t32 t33 t34)
+    (metarepresentation3 t35 t36 t37)
+    (metarepresentation3 t38 t39 t40)
 
-    (free4 t41 t42 t43 t44)
-    (free4 t45 t46 t47 t48)  
+    (metarepresentation4 t41 t42 t43 t44)
+    (metarepresentation4 t45 t46 t47 t48)  
 
     ; This disjunction is useful to avoid reusing the same agent in some actions
     (disjuncted_a sally anne)
@@ -175,14 +175,14 @@
     (isAt t2 anne room)
     (isAt t3 sally room)
 
-    (Know t4 anne t2)
-    (Know t5 anne t3)
-    (Know t6 sally t2)
-    (Know t7 sally t3)
+    (Believe t4 anne t2)
+    (Believe t5 anne t3)
+    (Believe t6 sally t2)
+    (Believe t7 sally t3)
 
     (isIn t8 ball emptySpace)
-    (Know t9 anne t8)
-    (Know t10 sally t8)
+    (Believe t9 anne t8)
+    (Believe t10 sally t8)
 
     ; Willingness of the agents about changin room or putting the ball into the box
 
@@ -216,8 +216,8 @@
     (isAt g9 anne room)
 
 
-    (isNeutral sally)
-    (isNeutral anne)
+    (isEmpathic sally)
+    (isEmpathic anne)
 
     ;(isNeutral sally); interesting for the goal ok4
     ;(isEmpathic anne); interesting for the goal ok5
@@ -231,15 +231,15 @@
 
 (:goal  
     (and 
-        ;(ok1)     ;description: Want Sally to know something that Anne doesn't know
-        ;(ok2)     ;description: Want to blame Sally because the ball is in the box1 while Anne ignores that she has been blamed
-        ;(ok3)     ;description: Tell agent 1 that he/she has been insulted by agent 2 
-        ;(ok4)     ;description: Want to make Sally sad without insulting her
+        (ok1)     ;description: Want Sally to Believe something that Anne doesn't Believe
+        (ok2)     ;description: Want to blame Sally because the ball is in the box1 while Anne ignores that she has been blamed
+        (ok3)     ;description: Tell agent 1 that he/she has been insulted by agent 2 
+        (ok4)     ;description: Want to make Sally sad without insulting her
         ;(ok5)     ;description: Want to make Sally and Anne happy for something while they both ignore the emotional state of the other one
-        ;(ok6)     ;description: Want to make Sally happy for something and angry because Anne has been insulted, while making Anne sad for something that isn't the insult
-        ;(ok7)     ;description: Want to make Sally sad by insulting Anne
-        ;(ok8)     ;description: Want an agent to know where the ball is while tolding this information to other one. Both should be out of the room at the end
-        ;(ok9)     ;description: Want to make Sally sad. She and the other agent should be out of the room at the end 
+        (ok6)     ;description: Want to make Sally happy for something and angry because Anne has been insulted, while making Anne sad for something that isn't the insult
+        (ok7)     ;description: Want to make Sally sad by insulting Anne
+        (ok8)     ;description: Want an agent to Believe where the ball is while tolding this information to other one. Both should be out of the room at the end
+        (ok9)     ;description: Want to make Sally sad. She and the other agent should be out of the room at the end 
         (ok10)    ;description: Want to make Sally surprised about a verified information, without blaming another agent, and both should be out of the room at the end 
         ;(ok11)
     )
